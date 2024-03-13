@@ -8,7 +8,7 @@ Neki od trenutno najbezbednijih algoritama su:
 
 **● Argon2:** Ovaj algoritam heširanja posebno dizajniran da zaštiti kredencijale. Smatra se jednim od najbezbednijih i preporučuje ga projekat bezbednosti otvorenih veb aplikacija (OWASP), pruža visok nivo odbrane od napada zasnovanih na GPU-u.
 
-**● Bcrypt:** Ova funkcija heširanja lozinke je napravljena da uspori brute force napad. U proces heširanja uključeno je dodavanje “soli” ( _password salting_ ), štiteći tako sačuvane heš vrednosti od napada duginih tabela ( _rainbow table attack_ ).
+**● Bcrypt:** Ova funkcija heširanja lozinke je napravljena da uspori brute force napad. U proces heširanja uključeno je dodavanje “soli” (_password salting_), štiteći tako sačuvane heš vrednosti od napada duginih tabela (_rainbow table attack_).
 
 **● PBKDF2** (password-based key derivation function)**:** Preporučen od strane NIST-a. Ovaj algoritam heširanja je mnogo sporiji od SHA, stoga je još jedan pogodan algoritam heširanja za zaštitu lozinki. Koristi so za generisanje heševa lozinki koje je teže pogoditi i proizvodi izlaz konfigurabilne veličine (npr. 256 bita).
 
