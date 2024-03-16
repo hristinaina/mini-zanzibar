@@ -1,12 +1,12 @@
 # OSNOVNE INFORMACIJE
 Log datoteka, u domenu softvera, je tekstualna datoteka koja bilježi događaje, aktivnosti ili informacije vezane za rad aplikacije. 
-Postoje tri vrste log datoteka:
+<br>Postoje tri vrste log datoteka:
 -	sistemski logovi – vode zapise o kritičnim događajima kao što su pokretanje i zaustavljanje sistema i upozorenja o kritičnim greškama
 -	aplikacijski logovi – proizvod aplikacija koje bilježe svoje aktivnosti, kao što su upiti nad bazom podataka i korisničke akcije
 -	sigurnosni logovi – prate sigurnosne događaje kao što su pokušaji prijavljivanja i pristup neovlašćenih korisnika
 
 Log datoteke imaju višestruku važnost:
-              -      dijagnostika – pružaju korisne informacije za dijagnostikovanje problema
+- dijagnostika – pružaju korisne informacije za dijagnostikovanje problema
 -	sigurnost – zahvaljujući logovima možemo detektovati ranjivosti i druge sigurnosne probleme u sistemu
 -	praćenje performansi – logovi sadrže informaciju o vremenu kada je određena akcija pokrenuta, te omogućavaju jednostavno praćenje performansi sistema (npr. vrijeme odziva)
 
