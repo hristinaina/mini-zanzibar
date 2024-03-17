@@ -47,5 +47,5 @@ nikakav mehanizam koji bi nakon određenog vremena (6 mjeseci, godinu data...) v
 To plaćamo bespotrebnim zauzećem memorije.
 
 Važne osobine logova (dostupnost, neporecivost i integritet) su samo donekle ispunjene. Nismo koristili digitalne potpise da bi podržali neporecivost
-zapisa i time sprječili mogućnost manipulacije sadržajem. Da bi obezbjedili integritet potrebno je da dodamo i enkripciju zapisa,
+zapisa i time spriječili mogućnost manipulacije sadržajem. Da bi obezbjedili integritet potrebno je da dodamo i enkripciju zapisa,
 da bi onemogućili bilo kakvu izmjenu ili neovlašćen pristup.
