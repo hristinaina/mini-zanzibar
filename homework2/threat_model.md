@@ -65,8 +65,12 @@ Ne predstavljaju visoku opasnost po sistem.
 - __Potencijalne ulazne tačke za napad__:
   - API endpointi: Slabe kontrole pristupa, preopterećenje API-ja, zloupotreba API endpointa.
   - Automatizovani alati: Ranjivosti u skriptama i algoritmima koji se koriste za automatizaciju, nedostatak zaštite od zloupotrebe. Na primjer korisnik bi mogao kroz komunikaciju sa botom da ga navede da mu izvrši rezervaciju putovanja i da pritom izbjegne plaćanje.
+ 
+## ZADATAK 4
+![threat_model](https://github.com/hristinaina/secure-software-engineering/assets/96604086/f368550f-0f8a-4da3-851d-1172c0168250)
 
 ## ZADATAK 5
+
 
 ### S T R I D E (Spoofing, Tampering, Repudiation, Information disclosure, Denial of service and Elevation of privilege)
 
