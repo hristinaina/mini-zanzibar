@@ -1,0 +1,1117 @@
+{
+  "version": "2.2.0",
+  "summary": {
+    "title": "MegaTravel",
+    "owner": "nemamo broj",
+    "description": "MegaTravel je multinacionalna kompanija za organizaciju putovanja. Naša misija je da vam pomognemo da \nisplanirate i doživite vrhunski odmor. Pokrivamo širok spektar usluga, uključujući:\n• Rezervacija smeštaja, gde biramo najpogodniji smeštaj za vaše putovanje.\n• Prevoz, gde nalazimo najbolje ponude da vas odvedemo do odredišta iz snova.\n• Planiranje odmora, gde zakazujemo izlete, iznajmljujemo vozila, pripremamo zabave i obavljamo razne usluge kako \nbismo vam zaista pružili najbolje moguće iskustvo.\nNaša korporacija se prostire širom sveta, sa tri glavna sedišta u Londonu, Bostonu i Hong Kongu, i desetinama filijala \nu većini metropola. Naših deset hiljada zaposlenih, podržani najnovijim i najvećim tehnološkim dostignućima, \nneumorno rade na istraživanju i planiranju vaših iskustava, tako da vi ne morate",
+    "id": 0
+  },
+  "detail": {
+    "contributors": [],
+    "diagrams": [
+      {
+        "id": 0,
+        "title": "STRIDE diagram",
+        "diagramType": "STRIDE",
+        "placeholder": "New STRIDE diagram description",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "version": "2.2.0",
+        "cells": [
+          {
+            "position": {
+              "x": -3640,
+              "y": -1810
+            },
+            "size": {
+              "width": 110,
+              "height": 70
+            },
+            "attrs": {
+              "text": {
+                "text": "Klijenti"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "id": "9237f71c-a53c-4cc9-b595-6e30d5c5f7d4",
+            "zIndex": 1,
+            "data": {
+              "type": "tm.Actor",
+              "name": "Klijenti",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "providesAuthentication": false,
+              "threats": [
+                {
+                  "id": "8e8f386e-85ab-47e9-ac25-2996b2a44416",
+                  "title": "New STRIDE threat",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Spoofing",
+                  "description": "Klijenti napadju na razne načine, opisani su u pdf-u (brute force, xss, CSRF)...",
+                  "mitigation": "Autentifikacija i autorizacija, višefaktorska autentifikacija, reCaptch-a...",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 3,
+                  "score": ""
+                }
+              ]
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Zahtev (https)\n",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "bbfbab09-888c-496f-ad63-66e99ebc1568",
+            "source": {
+              "cell": "9237f71c-a53c-4cc9-b595-6e30d5c5f7d4"
+            },
+            "target": {
+              "cell": "3a923a26-e398-413d-a97b-f452ea66f5fb"
+            },
+            "vertices": [
+              {
+                "x": -3470,
+                "y": -1670
+              }
+            ],
+            "labels": [
+              "Zahtev (https)\n"
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Odgovor (https)",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "3e9daee1-ccbc-4235-9355-fdd34f2cdf09",
+            "source": {
+              "cell": "3a923a26-e398-413d-a97b-f452ea66f5fb"
+            },
+            "target": {
+              "cell": "9237f71c-a53c-4cc9-b595-6e30d5c5f7d4"
+            },
+            "vertices": [
+              {
+                "x": -3370,
+                "y": -1775
+              }
+            ],
+            "labels": [
+              "Odgovor (https)"
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Rezultat upita",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "57b36df8-a1a5-46f3-97ae-3c6bfc65e83c",
+            "source": {
+              "cell": "216acbcf-1faa-469c-a270-159ef9b70d63"
+            },
+            "target": {
+              "cell": "3a923a26-e398-413d-a97b-f452ea66f5fb"
+            },
+            "labels": [
+              "Rezultat upita"
+            ],
+            "vertices": [
+              {
+                "x": -3100,
+                "y": -1470
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Čitaj konf",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "634600be-9dab-476d-9e59-a8d69f386b63",
+            "source": {
+              "cell": "2382ad0f-d3fd-4f2e-9bd0-2ab0d8ef7d54"
+            },
+            "target": {
+              "cell": "3a923a26-e398-413d-a97b-f452ea66f5fb"
+            },
+            "vertices": [
+              {
+                "x": -3410,
+                "y": -1420
+              }
+            ],
+            "labels": [
+              "Čitaj konf"
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Log zapis",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "45b14ece-8f71-4a7d-a9ba-178cf75f7d2d",
+            "source": {
+              "cell": "3a923a26-e398-413d-a97b-f452ea66f5fb"
+            },
+            "target": {
+              "cell": "8b2d933c-ce74-4e31-ab31-31f88a2c791d"
+            },
+            "vertices": [
+              {
+                "x": -3260,
+                "y": -1470
+              }
+            ],
+            "labels": [
+              "Log zapis"
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Upiti",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "811c6bbc-fc74-400b-9316-89fae2d3732a",
+            "source": {
+              "cell": "3a923a26-e398-413d-a97b-f452ea66f5fb"
+            },
+            "target": {
+              "cell": "216acbcf-1faa-469c-a270-159ef9b70d63"
+            },
+            "labels": [
+              "Upiti"
+            ],
+            "vertices": [
+              {
+                "x": -3190,
+                "y": -1460
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Upiti",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "19d24da5-a8fd-4354-90be-c7fae25f0ffa",
+            "source": {
+              "cell": "b9bca669-0050-4043-b78c-c1a0f450e160"
+            },
+            "target": {
+              "cell": "216acbcf-1faa-469c-a270-159ef9b70d63"
+            },
+            "labels": [
+              "Upiti"
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Data Flow",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "89b1cbf5-fdc2-4a00-812b-ced28f78784a",
+            "source": {
+              "cell": "216acbcf-1faa-469c-a270-159ef9b70d63"
+            },
+            "target": {
+              "cell": "b9bca669-0050-4043-b78c-c1a0f450e160"
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "CRUD",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "e090712c-756d-4367-b934-0728e7f54d0a",
+            "source": {
+              "cell": "3a923a26-e398-413d-a97b-f452ea66f5fb"
+            },
+            "target": {
+              "cell": "b9bca669-0050-4043-b78c-c1a0f450e160"
+            },
+            "labels": [
+              "CRUD"
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "CRUD",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "11b114d6-fb4c-46a0-8ec4-8e7b1a813e83",
+            "source": {
+              "cell": "b9bca669-0050-4043-b78c-c1a0f450e160"
+            },
+            "target": {
+              "cell": "71c1be6c-3c1b-4708-a521-5c8a180a2180"
+            },
+            "labels": [
+              "CRUD"
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Zahev za plaćanjem",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "id": "5693a31a-6fb3-433c-82e0-12c2293610ff",
+            "source": {
+              "cell": "b9bca669-0050-4043-b78c-c1a0f450e160"
+            },
+            "target": {
+              "cell": "0c199ce2-20a4-45d9-813d-f46a5fc76ea1"
+            },
+            "labels": [
+              "Zahev za plaćanjem"
+            ]
+          },
+          {
+            "shape": "trust-boundary-curve",
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Boundary",
+              "name": "",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            },
+            "id": "901a4c65-c5d9-412f-802b-7153abbf1007",
+            "source": {
+              "x": -3120,
+              "y": -1910
+            },
+            "target": {
+              "x": -2780,
+              "y": -1890
+            },
+            "vertices": [
+              {
+                "x": -2980,
+                "y": -1810
+              },
+              {
+                "x": -2820,
+                "y": -1830
+              }
+            ]
+          },
+          {
+            "shape": "trust-boundary-curve",
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Boundary",
+              "name": "",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            },
+            "id": "dbaba78c-5696-43b2-a118-ae8ebd823b3d",
+            "source": {
+              "x": -3390,
+              "y": -1880
+            },
+            "target": {
+              "x": -3140,
+              "y": -1890
+            },
+            "vertices": [
+              {
+                "x": -3370,
+                "y": -1850
+              },
+              {
+                "x": -3280,
+                "y": -1810
+              },
+              {
+                "x": -3190,
+                "y": -1830
+              }
+            ]
+          },
+          {
+            "shape": "trust-boundary-curve",
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Boundary",
+              "name": "",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            },
+            "id": "ec4ba271-6f0e-4e52-9045-102aeda57894",
+            "source": {
+              "x": -3616,
+              "y": -1670
+            },
+            "target": {
+              "x": -3510,
+              "y": -1840
+            },
+            "vertices": [
+              {
+                "x": -3500,
+                "y": -1730
+              }
+            ]
+          },
+          {
+            "shape": "trust-boundary-curve",
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Boundary",
+              "name": "",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            },
+            "id": "7e552ed3-6633-4550-b4f5-eab2185553c9",
+            "source": {
+              "x": -3110,
+              "y": -1290
+            },
+            "target": {
+              "x": -2797,
+              "y": -1288
+            },
+            "vertices": [
+              {
+                "x": -2970,
+                "y": -1400
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Transakcija plaćanja",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": [
+                {
+                  "id": "da74a5fa-7a93-4725-8d33-e848d72bb2c8",
+                  "title": "New STRIDE threat",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Information disclosure",
+                  "description": "Slušanje komunikacije i dobavljanje osjetljivih informacija.",
+                  "mitigation": "Sertifikati",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 6,
+                  "score": ""
+                }
+              ]
+            },
+            "id": "ed7f96ea-f7d5-4c8d-a571-acb62440b2eb",
+            "source": {
+              "cell": "0c199ce2-20a4-45d9-813d-f46a5fc76ea1"
+            },
+            "target": {
+              "x": -3220,
+              "y": -1860
+            },
+            "labels": [
+              "Transakcija plaćanja"
+            ]
+          },
+          {
+            "position": {
+              "x": -3320,
+              "y": -1920
+            },
+            "size": {
+              "width": 112.5,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "PayPal"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "id": "4f734895-691a-4cfc-b1b6-3764715b1b18",
+            "zIndex": 12,
+            "data": {
+              "type": "tm.Actor",
+              "name": "PayPal",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "providesAuthentication": false,
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": -3047.5,
+              "y": -1350
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Baza podataka"
+              },
+              "topLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "id": "216acbcf-1faa-469c-a270-159ef9b70d63",
+            "zIndex": 16,
+            "data": {
+              "type": "tm.Store",
+              "name": "Baza podataka",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": [
+                {
+                  "id": "8012e97d-f8fe-415c-8204-f858e030ba74",
+                  "title": "New STRIDE threat",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Tampering",
+                  "description": "Pristup podacima od strane stranog entiteta, dobavljanje podataka (sql injection), bombardovanje baze zahtevima",
+                  "mitigation": "Adekvatna autentifikacija i autorizacija. Ograničenje broja zahtjeva po korisniku. ",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 2,
+                  "score": ""
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "x": -3280,
+              "y": -1340
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Logovi"
+              },
+              "topLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "id": "8b2d933c-ce74-4e31-ab31-31f88a2c791d",
+            "zIndex": 17,
+            "data": {
+              "type": "tm.Store",
+              "name": "Logovi",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": [
+                {
+                  "id": "c98770ff-8420-4819-8a2b-fb878c2b5488",
+                  "title": "New STRIDE threat",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Tampering",
+                  "description": "Napad na logove da se izmjene, izbrisu i izmjene podaci.",
+                  "mitigation": "Korištenje sertifikata, dodatnih skladišta i slično",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 4,
+                  "score": ""
+                },
+                {
+                  "id": "0a118889-8222-4286-abab-0c171473b1c6",
+                  "title": "New STRIDE threat",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Tampering",
+                  "description": "Provide a description for this threat",
+                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "modelType": "STRIDE",
+                  "new": true,
+                  "number": 0,
+                  "score": ""
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "x": -3047.5,
+              "y": -1925
+            },
+            "size": {
+              "width": 150,
+              "height": 70
+            },
+            "attrs": {
+              "text": {
+                "text": "Ugostiteljski partneri"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "id": "71c1be6c-3c1b-4708-a521-5c8a180a2180",
+            "zIndex": 18,
+            "data": {
+              "type": "tm.Actor",
+              "name": "Ugostiteljski partneri",
+              "description": "hotelski rezervacioni sistemi, avio-kompanije,\nagencije za iznajmljivanje automobila, restorani i ostali ugostiteljski objekti \n",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "providesAuthentication": false,
+              "threats": [
+                {
+                  "id": "1d7119bd-0c5e-4c97-b80a-ab72f3e676ea",
+                  "title": "New STRIDE threat",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Spoofing",
+                  "description": "Ranjivosti u spoljnim servisima koje MegaTravel koristi. Nevalidirani ulazni podaci, nedostatak autentifikacije i autorizacije.",
+                  "mitigation": "Bolja autentifikacija i autorizacija, provjera ranjivosti usluga koje koristimo, validacija sertifikatima...",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 1,
+                  "score": ""
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "x": -3470,
+              "y": -1670
+            },
+            "size": {
+              "width": 300,
+              "height": 100
+            },
+            "attrs": {
+              "text": {
+                "text": "Web/mobilna\n aplikacjia"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "id": "3a923a26-e398-413d-a97b-f452ea66f5fb",
+            "zIndex": 19,
+            "data": {
+              "type": "tm.Process",
+              "name": "Web/mobilna\n aplikacjia",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": true,
+              "privilegeLevel": "",
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": -3217.5,
+              "y": -1780
+            },
+            "size": {
+              "width": 200,
+              "height": 110
+            },
+            "attrs": {
+              "text": {
+                "text": "Obrada plaćanja"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "id": "0c199ce2-20a4-45d9-813d-f46a5fc76ea1",
+            "zIndex": 20,
+            "data": {
+              "type": "tm.Process",
+              "name": "Obrada plaćanja",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "handlesCardPayment": true,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": -2990,
+              "y": -1644
+            },
+            "size": {
+              "width": 140,
+              "height": 100
+            },
+            "attrs": {
+              "text": {
+                "text": "Rezervacije"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 23,
+            "id": "b9bca669-0050-4043-b78c-c1a0f450e160",
+            "data": {
+              "type": "tm.Process",
+              "name": "Rezervacije",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": true,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": -3530,
+              "y": -1340
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Konfiguracioni fajl"
+              },
+              "topLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "id": "2382ad0f-d3fd-4f2e-9bd0-2ab0d8ef7d54",
+            "zIndex": 24,
+            "data": {
+              "type": "tm.Store",
+              "name": "Konfiguracioni fajl",
+              "description": "",
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": []
+            }
+          }
+        ]
+      }
+    ],
+    "diagramTop": 1,
+    "reviewer": "",
+    "threatTop": 6
+  }
+}
