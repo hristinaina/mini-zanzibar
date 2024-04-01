@@ -1,12 +1,11 @@
 ## ZADATAK 1
-1. __Konkurencija u industirji__: Konkurentne turističke kompanije ili agencije mogu biti zainteresovane za napade kako bi oslabile reputaciju ili funkcionalnost MegaTravel platforme. Njihovi napadi mogu biti usmereni na ometanje usluga, krađu intelektualne svojine, sabotažu sistema i slično. Nivo vještine može biti visok, jer imaju stručnost i resurse za ciljanje specifičnih ranjivost ili izvršavanje složenih napada.
+1. __Konkurencija u industriji__: Konkurentne turističke kompanije ili agencije mogu biti zainteresovane za napade kako bi oslabile reputaciju ili funkcionalnost MegaTravel platforme. Njihovi napadi mogu biti usmereni na ometanje usluga, krađu intelektualne svojine, sabotažu sistema i slično. Nivo vještine može biti visok, jer imaju stručnost i resurse za ciljanje specifičnih ranjivost ili izvršavanje složenih napada.
 2. __Insajderi__ (zaposleni ili bivši zaposleni MegaTravela): ukoliko imaju nezadovoljstvo ili motivaciju da oštete kompaniju. Insajderi takođe mogu biti motivisani ličnom dobiti, kao što su krađa kreditnih kartica i drugih povjerljivih podataka. Imaju visok nivo znanja o sistemu, što ih čini posebno opasnim. Njihovi ciljevi mogu uključivati i sabotažu sistema ili štetu reputaciji kompanije. Insajderi koji djeluju samostalno  mogu da predstavljaju niži nivo opasnosti, međutim, udruženje njihovog unutrašnjeg poznavanja sistema sa iskusnim hakerima može da napravi veliku štetu po softverski sistem kompanije.
 3. __Nezadvoljni korisnici__: motivacija je izražavanje nezadovoljstva i sabotiranje usluga. Nivo vještine može biti različit, od nižeg do visokog, u zavisnosti od njihovih tehničkih sposobnosti ili angažovanja drugih napadača. Mogu koristiti jednostavnije tehnike kao što su brute force napadi i manipulacija korisničkim interfejsom. Krajnji cilj može biti bilo kakva vrsta oštećenja kompanije zbog koje se pojavilo nezadovoljstvo.
-4. __Kriminalne grupe__: mogu pokušati izvršiti različite vrste napada radi finansijske dobiti poput krađe finansijskih informacija (credit card information), ličnih podataka, ucjena i drugo. Mogu koristiti različite tehnike kao što su phishing, malware, DDoS napadi ili zero-day ranjivosti. Kriminalne grupe predstavljaju visok nivo opasnosti i vjerovatno najopasniju grupu napadača od gorepomenutih.
-5. __Hakovanje iz zabave__: pojedinci ili grupe koje napadaju sisteme iz zabave, bez specifičnih motiva ili ciljeva. Ovi napadi se obično zovu ,,napadi iz zabave’’ ili ,,haktivizam (hactivity). Mogu predstavljati malu, ali i visoku prijetnju, u zavisnosti kakve vještine posjeduju. Motivacija takođe može biti vježba ili sticanje iskustva kako bi se kasnije mogli postići ozbiljniji ciljevi od hakovanje MegaTravel-a.
+4. __Kriminalne grupe__: mogu pokušati izvršiti različite vrste napada radi finansijske dobiti poput krađe finansijskih informacija (credit card information), ličnih podataka, ucjena i drugo. Mogu koristiti različite tehnike kao što su phishing, malware, DDoS napadi ili zero-day ranjivosti. Kriminalne grupe predstavljaju visok nivo opasnosti i vjerovatno najopasniju grupu napadača od gore pomenutih.
+5. __Hakovanje iz zabave__: pojedinci ili grupe koje napadaju sisteme iz zabave, bez specifičnih motiva ili ciljeva. Ovi napadi se obično zovu ,,napadi iz zabave’’ ili ,,haktivizam (hactivity). Mogu predstavljati malu, ali i visoku prijetnju, u zavisnosti kakve vještine posjeduju. Motivacija takođe može biti vježba ili sticanje iskustva kako bi se kasnije postigli ozbiljniji ciljevi od hakovanje MegaTravel-a.
 6. __Hacktivisti__: osobe ili grupe koje koriste svoje tehničke vještine u cilju podrške socijalnim, političkim ili aktivističkim ciljevima. Mogu izvršiti napade kako bi privukli pažnju javnosti na određene probleme ili kako bi protestovali protiv nečega. Obično ne predstavljaju veliku prijetnju za softverski sistem.
-7. __Ekološki aktivisti__: grupacije ili pojedinci koji se bave zaštitom životne sredine. Motivacija je sabotaža MegaTravel-a zbog negativnog uticaja po životnu sredinu, kao što su avionski letovi.
-Ne predstavljaju visoku opasnost po sistem. 
+7. __Ekološki aktivisti__: grupacije ili pojedinci koji se bave zaštitom životne sredine. Motivacija je sabotaža MegaTravel-a zbog negativnog uticaja po životnu sredinu, kao što su avionski letovi. Ne predstavljaju visoku opasnost po sistem. 
 8. __Podzemne grupe__: kriminalne organizacije koje se bave ilegalnim aktivnostima poput krijumčarenja, pranja novca ili trgovine opojnih sredstava. Motivacija je mogućnost korišćenja MegaTravel-a radi ispunjenja ciljeva. Nivo opasnosti ove grupe napadača može da varira u zavisnosti od nivoa hakerskog znanja i motivacije.
 
 ## ZADATAK 2
@@ -21,8 +20,8 @@ Ne predstavljaju visoku opasnost po sistem.
 - __Uticaj oštećenja__: Oštećenje poverljivosti može dovesti do krađe identiteta, finansijske prevare, gubitka poverenja klijenata. Oštećenje integriteta može dovesti do finansijskih grešaka, neispravnih izveštaja, poremećaja u poslovnim transakcijama. Oštećenje dostupnosti može dovesti do kašnjenja u finansijskim transakcijama, problema sa fakturisanjem, gubitka poslovnih prilika.
 
 ### 3. Podaci o rezervacijama:
-- __Inherentna izloženost__: rizik od lažnih rezervacija, manipulacija podacima rezervacija, nedostatak autentičnosti podataka
-- __Bezbjednosti ciljevi__: verifikacija autentičnosti rezervacija, osiguranje intergriteta podataka i sprečavanje manipulacija podacima. To možemo postići autentifikacijom i autorizacijom, enkripcijom podataka, validacijom unosa (npr. sprečavanje XSS napada)...
+- __Inherentna izloženost__: Rizik od lažnih rezervacija, manipulacija podacima rezervacija, nedostatak autentičnosti podataka
+- __Bezbjednosti ciljevi__: Verifikacija autentičnosti rezervacija, osiguranje intergriteta podataka i sprečavanje manipulacija podacima. To možemo postići autentifikacijom i autorizacijom, enkripcijom podataka, validacijom unosa (npr. sprečavanje XSS napada)...
 - __Uticaj oštećenja__: Oštećenje ovih bezbednosnih ciljeva može dovesti do netačnih rezervacija, gubitka podataka o putnicima i financijskih gubitaka usled neslaganja u evidenciji, kao i gubitka reputacije kompanije
 
 ### 4. Interni poslovni procesi i dokumentacija:
@@ -71,8 +70,7 @@ Ne predstavljaju visoku opasnost po sistem.
 
 ## ZADATAK 5
 
-
-### S T R I D E (Spoofing, Tampering, Repudiation, Information disclosure, Denial of service and Elevation of privilege)
+### STRIDE (Spoofing, Tampering, Repudiation, Information disclosure, Denial of service and Elevation of privilege)
 
 ### S opasnosti:
 1. lažno predstavljanje korisnika
@@ -96,7 +94,8 @@ Ne predstavljaju visoku opasnost po sistem.
 1. malver (malicious software) manipuliše korisnikovim unosom, što može dovesti do slanja nevažećih ili zlonamernih podataka serveru.
 2. malver menja poruke koje se šalju između klijenta i servera
 3. malver prikazuje lažne ili zlonamerne podatke na korisničkom interfejsu
-4. malver modifikuje unos sa korisnikove tastature 
+4. malver modifikuje unos sa korisnikove tastature
+   
 ### T ublažavanje opasnosti:
 1. implementacija mehanizama za validaciju korisničkog unosa na serveru kako bi se sprečilo slanje nevažećih ili zlonamernih podataka.
 2. korišćenje https komunikaciju, kako bi se osigurala tajnost i integritet podataka
@@ -109,6 +108,7 @@ Ne predstavljaju visoku opasnost po sistem.
 3. loši log zapisi
 4. nedostatak log zapisa
 5. neadekvatni log zapisi
+   
 ### R ublažavanje opasnosti:
 1. implementacija mehanizma za bilježenje i čuvanje logova transakcija, uključujući korisničke aktivnosti, vremenske odrednice i dodatne relevantne informacije
 2. implementacija digitalnih potpisa za važne transakcije i korisničke akcije kako bi postigli autentičnost i integritet podataka 
@@ -123,6 +123,7 @@ Ne predstavljaju visoku opasnost po sistem.
 4. loše konfigurisane dozvole za pristup
 5. nedostatak enkripcije podataka
 6. slabe politike bezbjednosti
+   
 ### I ublažavanje opasnosti:
 1. edukacija korisnika o phishingu, verifikacija identiteta, sigurnosna obavještenja o prijetnjama ribarenja i upozoravanje na sumnjive aktivnosti ili poruke koje su primili, instalacija bezbjednog softvera koji može da detektuje phishing pokušaje
 2. HTTS, SSL/TLS za enkripciju podataka tokom prenosa
@@ -139,7 +140,6 @@ Ne predstavljaju visoku opasnost po sistem.
 5. veliki broj mrežnih paketa blokira mrežu
 6. ugrožavanje integriteta poruke
 
-
 ### D ublaževanje opasnosti:
 1. implementiranje ograničavanje broja istovremenih zahteva, korišćenje keširanja
 2. validacija unosa kako bi se sprečilo slanje nevažećih ili zlonamernih parametara. Implementacija mehanizama za ograničavanje resursa kao što su limiti memorije i CPU-a
@@ -154,12 +154,8 @@ Ne predstavljaju visoku opasnost po sistem.
 3. osetljivost na cross-domain napade
 4. osetljivost na XSS napade
 
-
 ### E ublaževanje opasnosti:
 1. redovno ažuriranje sistema i drajvera
 2. redovno ažuriranje aplikacija i softverskih komponenti na klijentskoj strani radi uvođenja sigurnosnih ispravki
 3. pravilno konfigurisanje CORS (Cross-Origin Resource Sharing) politika kako bi se ograničio pristup resursima sa drugih domena
 4. implementacija input validacije kako bi se sprečilo ubacivanje skripti u korisnički unos. Korišćenje bezbednih API-ja i metoda za manipulaciju DOM-om kako bi se osiguralo bezbedno renderovanje korisničkog unosa.
-
-
-
