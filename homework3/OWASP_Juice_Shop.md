@@ -1,6 +1,4 @@
-﻿OWASP Juice Shop
-
-**KLASE NAPADA**
+﻿## KLASE NAPADA
 
 1. **Broken Authentication**
 - Klasa napada koja se odnosi na ranjivosti u mehanizmima autentifikacije, kao što su lozinke, tokeni sesija, *cookies*... Ovaj tip napada omogućava napadačima da zaobiđu autentifikacione mehanizme i steknu neovlašćen pristup korisničkim nalozima.
@@ -103,7 +101,7 @@
   - implementacija sistema za detekciju i sprečavanje neovlašćenog pristupa osetljivim podacima, poput IPS/IDS sistema ili SIEM platformi
 
 
-**IZAZOVI**
+## IZAZOVI
 
 Anastasija: 
   - Password Strength (Broken Authentication)
