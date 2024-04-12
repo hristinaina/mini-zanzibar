@@ -1,9 +1,8 @@
 ﻿OWASP Juice Shop izazovi
 
-
-1. saznati adminovu lozinku (Password Strength)
-- **Broken Authentication** je klasa napada koja se odnosi na ranjivosti u mehanizmima autentifikacije, kao što su lozinke, tokeni sesija, *cookies*... Ovaj tip napada omogućava napadačima da zaobiđu autentifikacione mehanizme i steknu neovlašćen pristup korisničkim nalozima.
-- Uticaj iskorištenja Broken Authentication klase ranjivosti može dovesti do:
+1. **Broken Authentication**
+- Klasa napada koja se odnosi na ranjivosti u mehanizmima autentifikacije, kao što su lozinke, tokeni sesija, *cookies*... Ovaj tip napada omogućava napadačima da zaobiđu autentifikacione mehanizme i steknu neovlašćen pristup korisničkim nalozima.
+- Uticaj iskorištenja ranjivosti klase može dovesti do:
   - neovlašćenog pristupa korisničkim nalozima sa privilegijama, kao što je administratorov nalog
   - krađe ili kompromitovanja osetljivih podataka korisnika
   - mogućnosti manipulacije ili brisanja podataka korisnika
@@ -21,9 +20,9 @@
   - redovno proveravanje i nadgledanje autentifikacionih aktivnosti kako bi se otkrile nepravilnosti ili sumnjive radnje.
  
     
-2. pronaći kredencijale korisnika (User Credentils)
-- **Injection** napad predstavlja situaciju u kojoj napadač ubacuje zlonamerni ili nevalidni ulaz u aplikaciju kako bi iskoristio ranjivost i izvršio neželjene akcije. U slučaju sql injection-a, napadač ubacuje SQL kod u input polje ili url parametre kako bi manipulisao sql upitima i izvršio neautorizovane akcije nad bazom podataka.
-- Uticaj iskorištenja Injection klase ranjivosti može dovesti do:
+2. **Injection**
+-  Ova klasa napada predstavlja situacije u kojoj napadač ubacuje zlonamerni ili nevalidni ulaz u aplikaciju kako bi iskoristio ranjivost i izvršio neželjene akcije. U slučaju sql injection-a, napadač ubacuje sql kod u input polje ili url parametre kako bi manipulisao sql upitima i izvršio neautorizovane akcije nad bazom podataka.
+- Uticaj iskorištenja ranjivosti klase može dovesti do:
   - neovlašćenog pristupa nad podacima iz baze podataka
   - krađe osetljivih informacija kao što su korisnička imena i lozinke
   - mogućnosti manipulacije ili brisanja podataka korisnika
@@ -32,15 +31,15 @@
   - neadekvatno čišćenje i filtriranje unesenih podatak, pre njihovog korišćenja u aplikaciji
   - korišćenje dinamičkih, a ne parametrizovanih sql upita
 - Primerene kontramere za sprečavanje napada:
-  - korišćenje parametrizovanih sql upita umesto dinamičkih upita
+  - korišćenje parametrizovanih sql upita umesto dinamičkih
   - validacija i filtriranje korisničkog unosa kako bi se uklonile potencijalno opasne komande
   - korišćenje ORM (*Object-Relational Mapping*) biblioteka koje automatski tretiraju input parametre kao podatke, a ne kao deo SQL upita.
   - implementacija principa najmanjih privilegija (*Least Privilege Principle*)
  
     
-3. pristup zabranjenoj datoteci (Poison Null Byte)
-- **Improper Input Validation** klasa se odnosi na situacije kada softver neadekvatno validira ulazne podatke koje prima od korisnika ili drugih izvora. To može dovesti do različitih bezbednosnih ranjivosti, uključujući SQL Injection, XSS (Cross-Site Scripting), Command Injection...
-- Uticaj iskorištenja Improper Input Validation klase ranjivosti može dovesti do:
+3. **Improper Input Validation**
+- Klasa se odnosi na situacije kada softver neadekvatno validira ulazne podatke koje prima od korisnika ili drugih izvora. To može dovesti do različitih bezbednosnih ranjivosti, uključujući SQL Injection, XSS (Cross-Site Scripting), Command Injection...
+- Uticaj iskorištenja ranjivosti klase može dovesti do:
   - neovlašćenog pristupa podacima
   - otkrivanje osetljivih informacija
 - Ranjivosti u softveru koje su dozvolile da napad uspe:
@@ -51,9 +50,9 @@
   - upotreba sigurnih funkcija za rad sa fajlovima i provera dozvola pristupa
  
     
-4. zaštita od XSS napada na serverskoj strani (Server-side XSS Protection)
-- **XSS (*Cross-Site Scripting*)** je vrsta napada na veb aplikacije gde napadač ubacuje zlonamerni JavaScript kod. Kod se izvršava na strani korisnika kada posećuje zaraženu veb stranicu.
-- Uticaj iskorištenja XSS klase ranjivosti može dovesti do:
+4. **XSS (*Cross-Site Scripting*)**
+- Klasa obuhvata napade na veb aplikacije, gde napadač ubacuje zlonamerni JavaScript kod. Kod se izvršava na strani korisnika kada posećuje zaraženu veb stranicu.
+- Uticaj iskorištenja ranjivosti klase može dovesti do:
   - izvršavanja zlonamernih akcija u ime korisnika
   - krađe osetljivih podataka
 - Ranjivosti u softveru koje su dozvolile da napad uspe:
@@ -68,9 +67,9 @@
   - korišćenje najnovijih verzija biblioteka i okvira koji imaju poboljšane mehanizme zaštite od XSS napada
  
     
-5. lažiranje kupona (Forged Coupon)
-- **Cryptographic Issues** je klasa napada koja se odnosi na situacije kada napadač pokušava da manipuliše ili falsifikuje kriptografske mehanizme. Na taj način želi da dođe do neovlašćenog pristupa i izvrši neke neželjene radnje. Klasa obuhvata sve vrste napada koji su povezani sa kriptografskim procesima ili implementacijama u softveru. Na primer manipulacija digitalnih potpisa, napad na algoritme enkripcije ili dekripcije...
-- Uticaj iskorištenja Cryptographic Issues klase ranjivosti može dovesti do:
+5. **Cryptographic Issues**
+- Klasa napada koja se odnosi na situacije kada napadač pokušava da manipuliše ili falsifikuje kriptografske mehanizme. Na taj način želi da dođe do neovlašćenog pristupa i izvrši neke neželjene radnje. Klasa obuhvata sve vrste napada koji su povezani sa kriptografskim procesima ili implementacijama u softveru. Na primer manipulacija digitalnih potpisa, napad na algoritme enkripcije ili dekripcije...
+- Uticaj iskorištenja ranjivosti klase može dovesti do:
   - manipulacije podataka unutar sistema
   - krađe osetljivih podataka
   - izvršavanja neovlašćenih radnji
@@ -84,9 +83,9 @@
   - provera autentičnosti i integriteta podataka korišćenjem digitalnih potpisa ili MAC (*Message Authentication Code*)
  
     
-6. (Misplaced Signature File)
-- **Sensitive Data Exposure** je klasa napada koja se odnosi na situacije kada osetljivi podaci (lozinke, finansijski podaci ili lične informacije) nisu adekvatno zaštićeni i postaju dostupni neovlašćenim entitetima.
-- Uticaj iskorištenja Sensitive Data Exposure klase ranjivosti može dovesti do:
+6. **Sensitive Data Exposure**
+- Klasa napada koja se odnosi na situacije kada osetljivi podaci (lozinke, finansijski podaci ili lične informacije) nisu adekvatno zaštićeni i postaju dostupni neovlašćenim entitetima.
+- Uticaj iskorištenja ranjivosti klase može dovesti do:
   - narušavanja privatnosti korisnika
   - krađe identiteta
 - Ranjivosti u softveru koje su dozvolile da napad uspe:
@@ -100,3 +99,24 @@
   - implementacija sigurnih protokola za prenos osetljivih podataka preko mreže
   - pravilno upravljanje identitetima i pristupom, uključujući snažnu autentikaciju i autorizaciju
   - implementacija sistema za detekciju i sprečavanje neovlašćenog pristupa osetljivim podacima, poput IPS/IDS sistema ili SIEM platformi
+
+
+**IZAZOVI**
+
+    Anastasija: 
+      - Password Strength (Broken Authentication)
+      - User Credentils (Injection)
+      - Poison Null Byte (Improper Input Validation)
+      - Server-side XSS Protection (XSS)
+      - Forged Coupon (Cryptographic Issues)
+      - Misplaced Signature File (Sensitive Data Exposure)
+  
+
+    Hristina: 
+      - Confidental document (Sensitive Data Exposure)
+      - Easter Egg (Broken Access Control)
+      - Nested Easter Egg (Cryptographic Issues)
+      - Poison Null Byte (Improper Input Validation)
+      - Blockchain Hype (Security through Obscurity)
+      - Client-side XSS Protection (XSS)
+      - Login Jim (Injection)     
