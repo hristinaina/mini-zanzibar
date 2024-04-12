@@ -1,4 +1,6 @@
-﻿OWASP Juice Shop izazovi
+﻿OWASP Juice Shop
+
+**KLASE NAPADA**
 
 1. **Broken Authentication**
 - Klasa napada koja se odnosi na ranjivosti u mehanizmima autentifikacije, kao što su lozinke, tokeni sesija, *cookies*... Ovaj tip napada omogućava napadačima da zaobiđu autentifikacione mehanizme i steknu neovlašćen pristup korisničkim nalozima.
@@ -103,20 +105,19 @@
 
 **IZAZOVI**
 
-    Anastasija: 
-      - Password Strength (Broken Authentication)
-      - User Credentils (Injection)
-      - Poison Null Byte (Improper Input Validation)
-      - Server-side XSS Protection (XSS)
-      - Forged Coupon (Cryptographic Issues)
-      - Misplaced Signature File (Sensitive Data Exposure)
-  
+Anastasija: 
+  - Password Strength (Broken Authentication)
+  - User Credentils (Injection)
+  - Poison Null Byte (Improper Input Validation)
+  - Server-side XSS Protection (XSS)
+  - Forged Coupon (Cryptographic Issues)
+  - Misplaced Signature File (Sensitive Data Exposure)
 
-    Hristina: 
-      - Confidental document (Sensitive Data Exposure)
-      - Easter Egg (Broken Access Control)
-      - Nested Easter Egg (Cryptographic Issues)
-      - Poison Null Byte (Improper Input Validation)
-      - Blockchain Hype (Security through Obscurity)
-      - Client-side XSS Protection (XSS)
-      - Login Jim (Injection)     
+Hristina: 
+  - Confidental document (Sensitive Data Exposure)
+  - Easter Egg (Broken Access Control)
+  - Nested Easter Egg (Cryptographic Issues)
+  - Poison Null Byte (Improper Input Validation)
+  - Blockchain Hype (Security through Obscurity)
+  - Client-side XSS Protection (XSS)
+  - Login Jim (Injection)     
