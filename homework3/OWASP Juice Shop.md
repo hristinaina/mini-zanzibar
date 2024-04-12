@@ -86,7 +86,7 @@
     
 6. (Misplaced Signature File)
 - **Sensitive Data Exposure** je klasa napada koja se odnosi na situacije kada osetljivi podaci (lozinke, finansijski podaci ili lične informacije) nisu adekvatno zaštićeni i postaju dostupni neovlašćenim entitetima.
-- Uticaj iskorištenja Cryptographic Issues klase ranjivosti može dovesti do:
+- Uticaj iskorištenja Sensitive Data Exposure klase ranjivosti može dovesti do:
   - narušavanja privatnosti korisnika
   - krađe identiteta
 - Ranjivosti u softveru koje su dozvolile da napad uspe:
