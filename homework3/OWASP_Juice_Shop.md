@@ -138,10 +138,48 @@
   - oslanjanje na manje poznate tehnike zaštite umjesto na standardne
 
 9. **Security Misconfiguration**
-  - todo
+  - Ova klasa odnosi se na nepravilnu konfiguraciju bezbednosnih podešavanja, dozvola i kontrola koje mogu dovesti do ranjivosti i neovlašćenog pristupa.
+- Uticaj iskorištenja ranjivosti klase može dovesti do:
+  - neovlašćeni pristup mrežama, sistemima i podacima
+  - pristup osetljivim informacijama, kao što su korisnički kredencijali, lični podaci ili poverljivi poslovni podaci
+- Ranjivosti u softveru koje su dozvolile da napad uspe:
+  - slaba enkripcija i heširanje
+  - ostavljanje podrazumevanih korisničkih imena i lozinka nepromenjenih
+  - nedostatak bezbedne komunikacije odnosno korištenje HTTP umesto HTTPS
+  - loša konfiguracija http zaglavlja
+  - nebezbedne dozvole za fajlove
+  - prikaz poruka o grešci koje sadrže osetljive informacije
+  - neadekvatne kontrole pristupa koje dozvoljavaju neovlašćenim korisnicima da vrše privilegovane radnje
+  - softver je zastareo i ranjiv
+  - otvoreni portovi koji nisu potrebni za poslovanje aplikacije
+- Primerene kontramere za sprečavanje napada:
+  - izbegavanje korišćenja podrazumevanih kredencijala
+  - bezbedna komunikacija internetom odnosno adekvatna konfiguracija HTTPS-a
+  - primena principa najmanjih privilegija
+  - redovno ažuriranje sistema
+  - bezbedno konfigurisanje http zaglavlja
+  - eksportovanje samo onih aktivnosti i servisa koje su neophodne za eksportovanje
 
-10. **XEE (...)**
-  - todo
+10. **XXE (XML External Entity)**
+  - XXE je klasa napada koja dozvoljava napadaču da u okviru aplikacije ometa obradu XML podataka. Često dozvoljava napadaču da pregleda datoteke na serverskom sistemu datoteka i da komunicira sa bilo kojim pozadinskim ili spoljnim sistemima kojima aplikacija može da pristupi.
+- Uticaj iskorištenja ranjivosti klase može dovesti do:
+  - remote izvršavanje koda (pod privilegijom aplikacije)
+  - pristup osetljivim podacima poput korisničkih lozinki
+  - dobijanje pristupa osetljivim putanjama lokalno na serveru putem directory traversal
+  - DoS, koji može dovesti do preopterećenja resursa na serveru i do uskraćivanja usluge
+  - dobijanje pristupa drugim direktorijumima na mreži
+  - server se može navesti da šalje HTTP zahteve na bilo koju URL adresu kojoj server može da pristupi (SSRF)
+- Ranjivosti u softveru koje su dozvolile da napad uspe:
+  - zastareli ili loše konfigurisani parseri
+  - loša validacija i sanitizacija input-a
+  - XML procesor je konfigurisan da rešava obradu spoljnih entiteta u okviru DTD (Document Type Definition)
+- Primerene kontramere za sprečavanje napada:
+  - primena napredne WAF (Web Application Firewall) zaštite
+  - konfiguracija XML parsera da se onemogući spoljna obrada entiteta
+  - korištenje sigurnih XML parsera
+  - redovno ažuriranje sistema 
+  - validacija ulaznih XML dokumenata
+
 
 ## IZAZOVI
 
