@@ -198,4 +198,12 @@ Hristina:
   - Poison Null Byte (Improper Input Validation)
   - Blockchain Hype (Security through Obscurity)
   - Client-side XSS Protection (XSS)
-  - Login Jim (Injection)     
+  - Login Jim (Injection)
+
+Katarina:
+  - Login Jim i Login Admin (Injection)
+  - Kill Chatbot (Vulnerable Components)
+  - Deluxe Fraud (Inproper Input Validation)
+  - Allowlist Bypass (Unvalidated Redirects)
+  - Deprecated Interface (Security Misconfiguration)
+  - Captcha Bypass (Broken Anti Automation)
