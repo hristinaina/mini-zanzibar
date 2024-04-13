@@ -203,7 +203,7 @@ Hristina:
 Katarina:
   - Login Jim i Login Admin (Injection)
   - Kill Chatbot (Vulnerable Components)
-  - Deluxe Fraud (Inproper Input Validation)
+  - Deluxe Fraud (Improper Input Validation)
   - Allowlist Bypass (Unvalidated Redirects)
   - Deprecated Interface (Security Misconfiguration)
   - Captcha Bypass (Broken Anti Automation)
