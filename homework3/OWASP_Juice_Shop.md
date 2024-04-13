@@ -100,6 +100,48 @@
   - pravilno upravljanje identitetima i pristupom, uključujući snažnu autentikaciju i autorizaciju
   - implementacija sistema za detekciju i sprečavanje neovlašćenog pristupa osetljivim podacima, poput IPS/IDS sistema ili SIEM platformi
 
+7. **Broken Access Control**
+- Klasa napada koja omogućava neovlašćenim korisnicima da pristupe, menjaju ili brišu podatke kojima ne bi trebalo da imaju pristup.
+- Uticaj iskorištenja ranjivosti klase može dovesti do:
+  - neovlašćeno pristupanje informacijama
+  - modifikacija ili uništavanje podataka
+  - obavljanje funkcija van granica korisnika
+- Ranjivosti u softveru koje su dozvolile da napad uspe:
+  - zaobilaženje provera kontrole pristupa izmenom URL adrese
+  - direktno iskorištavanje endpointa
+  - pogrešna konfiguracija CORS-a 
+  - nebezbedno upravljanje i manipulacija sesijama
+  - neadekvatna kontrola pristupa
+  - podizanje privilegija korisnika
+  - Nebezbedne direktne reference objekata (IDOR)
+- Primerene kontramere za sprečavanje napada:
+  - implementacija principa najmanjih privilegija
+  - bezbedno upravljanje sesijom
+  - snažna autentifikacija i autorizacija
+  - pravilno upravljanje identitetima objekata
+  - logovanje grešaka u kontroli pristupa
+  - brojno ograničavanje pristupa API-ju
+  
+
+8. **Security through Obscurity**
+- Praksa pokušaja zaštite sistema ili podataka skrivanjem informacija o sigurnosnim mehanizmima ili dizajnu softvera. Ova praksa se oslanja na ideju da ako se informacije o sistemu drže tajnim ili su nedostupne napadačima, sistem će biti siguran.
+- Uticaj iskorištenja ranjivosti klase može dovesti do:
+  - krađe intelektualnog vlasništva
+  - krađe ili kompromitovanja osetljivih podataka korisnika
+- Ranjivosti u softveru koje su dozvolile da napad uspe:
+  - nedostatak transparentnosti
+  - ovisnost o tajnosti
+  - slabe ostale mjere zaštite
+- Primerene kontramere za sprečavanje napada:
+  - korištenje dodatnih sigurnosnih mehanizama
+  - korištenje neobičnih portova
+  - oslanjanje na manje poznate tehnike zaštite umjesto na standardne
+
+9. **Security Misconfiguration**
+  - todo
+
+10. **XEE (...)**
+  - todo
 
 ## IZAZOVI
 
