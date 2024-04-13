@@ -180,6 +180,84 @@
   - redovno ažuriranje sistema 
   - validacija ulaznih XML dokumenata
 
+11. **Unvalidated Redirects**
+  - Unvalidated Redirects je klasa napada koja dozvoljava napadaču da se redirektuje na URL-ove bez prethodne validacije i dozvole. Na ovaj način može doći do različitih napada, kao što je phishing napad.
+  - Uticaj iskorištenja ove klase može dovesti do krađe korisničkih podataka, kompromitovanja sistema, širenja malicioznog softvera i drugih problema.
+  - Ranjivosti u softveru koje su dovele do uspješnosti napada su nedostaci validacije i provjere URL-ova ili slaba validacija. Takođe, ranjivost može izazvati i nedostatak autentifikacije prije usmjeravanja korisnika.
+  - Primjerene kontramjere:
+      - validacija URL-ova
+      - upotreba sigurnih preusmjeravanja
+      - autentifikacija prije usmjeravanja
+      - upozoravanje i informisanje korisnika o potencijalnim phishing akcijama
+
+12. **Vulnerable components**
+  - Vulnerable components klasa nastaje kada softver koristi komponente koje imaju određene sigurnosne ranjivosti. Takve komponente mogu biti zastarjele verzije biblioteka, koje napadači mogu iskoristiti za izvođenje različitih vrsta napada.
+  - Uticaj iskoštenja ove klase napada može dovesti do:
+      - kompromitovanja podataka
+      - izvršavanje malicioznog koda
+      - krađe korisničkih podataka
+      - kompromitovanja sistema
+  - Ranjivosti u softveru koje bi dovele do uspješnosti napada:
+      - korištenje zastarjelih verzija komponenti koje imaju određene ranjivosti
+      - nedostatak redovnog ažuriranja komponenti kako bi se ispravile određene ranjivosti
+      -  nedostatak testiranja, praćenja i provjeravanja sigurnosti različitih komponenti sistema
+  - Primjerene kontramjere:
+      - redovno ažuriranje komponenti koje imaju određene ranjivosti
+      - upotreba sigurnih komponenti
+      - redovno testiranje sigurnosti sistema
+
+13. **Insecure deserialization**
+  - Insecure deserialization klasa napada nastaje kada softver obavlja deserijalizaciju podataka bez prethodne provjere. Napadači mogu podmetnuti serijske podatke pomoću kojih će izvršiti različite štetne akcije.
+  - Uticaj iskorištenja ove klase može dovesti do:
+      - krađa korisničkih podataka
+      - promjena podataka
+      - izvršavanje malicioznog koda
+      - kompromitovanje sistema
+  - Ranjivosti u softveru koje bi dovele do uspješnosti napada:
+      - nedostatak provjere integriteta podataka prije deserijalizacije podataka
+      - nedostatak provjere autentičnosti podataka i njihovog izvora
+      - nedostatak uklanjanja podataka prije njihove deserijalizacije
+  - Primjerene kontramjere:
+      - validacija serijskih podataka
+      - otklanjanje i čišćenje podataka prije njihove obrade
+      - korištenje sigurnih biblioteka i mehanizama deserijalizacije (koje će automatski vršiti različite sigurnosne provjere)
+
+14. **Miscellaneous**
+  - Miscellaneous napad podrazumijeva napade kao što su zero-day napadi, nepravilno konfigurisani serveri, napadi od strane insider-a, loše upravljanje pristupom, nedostatak sigurnosnih ažuriranja.
+  - Uticaj iskorištenja ove klase može dovesti do:
+      - krađa podataka
+      - neovlašćen pristup
+      - izvršavanje malicionznog koda
+      - kompromitovanje sistema
+      - smanjena dostupnost sistema
+  - Ranjivosti u softveru koje bi dovele do uspješnosti napada:
+      - nedostatak ažuriranja
+      - nepravilno konfigurisani serveri
+      - loše obavljeno testiranje i slabe provjere sigurnosti sistema
+      - nepravilno rukovanje osjetljivim podacima
+      - neovlašćen pristup podacima
+  - Primjerene kontramjere:
+      - redovno ažuriranje
+      - redovno testiranje i praćenje sigurnosti sistema
+      - korištenje sigurnosnih alata, kao što su firewall, antivirusni programi...
+      - edukacija korisnika o mogućim opasnostima i kako se zaštiti od istih
+
+  15. **Broken Anti Automation**
+      - Broken Anti Automation napad nastaje kada softver koristi mehanizme poput CAPTCHA-e, rate limiting-a, token-based zaštite ili druge tehnike zaštite od automatizacije, ali su ti mehanizmi neispravno implementirani ili nisu dovoljno snažni da bi zaustavili automatizovane napade.
+      - Uticaj iskorištenja ove klase može dovesti do:
+        - neovlašćenog pristupa
+        - preopterećenja servera
+        - degradacije performansi
+        - kompormitovanja sistema
+      - Ranjivosti u softveru koje su dovele do uspješnosti napada:
+        - slabe CAPTCHA-e koje se mogu lako zaobići
+        - nedostatak pravilnog rate limiting-a
+        - nedostatak detekcije i sprječavanja automatizovanih napada
+      - Primjerene kontramjere:
+        - pravilno podešavanje CAPTCH-e
+        - pravilno podešavanje rate limiting-a
+        - korištenje komponenti za detekciju i sprješavanje automatizovanih napada
+        - redovno ažuriranje i testiranje sigurnosti sistema
 
 ## IZAZOVI
 
