@@ -1,5 +1,5 @@
-### 1. Login Jim (3 stars)
-- **Rješenje:** U okviru ocjena za sokove, možemo pronaći Jim-ovu email adresu. Na email adresu dodamo '-- čime zakomentarišemo ostatak koda. Na taj način bez poznavanja Jim-ove lozinke možemo pristupiti njegovom nalogu.
+### 1. Login Jim i Login Admin (3 stars)
+- **Rješenje:** U okviru ocjena za sokove, možemo pronaći Jim-ovu email adresu. Na email adresu dodamo '-- čime zakomentarišemo ostatak koda. Na taj način bez poznavanja Jim-ove lozinke možemo pristupiti njegovom nalogu. Za admina je bilo potrebno da u polje email unesemo `' OR True --`.
 - **Klasa:** Injection
 
 ### 2. Kill chatbot (5 stars)
