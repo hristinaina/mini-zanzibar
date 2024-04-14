@@ -14,10 +14,10 @@
 - **Rješenje:** Za ovaj problem smo se takođe morali konsultovati sa kodom. U kodu smo naišli na funkciju isRedirectAllowed. Ta funkcija dozvoljava redirekciju ukoliko se URL u potpunosti poklapa ili ukoliko je dozvoljeni URL sadržan u poslanom URL-u. Slanjem URL-a koji sadrži u sebi jedan od dozvoljenih URL-ova, riješili smo ovaj izazov.
 - **Klasa:** Unvalidated redirects
 
-## 5. Deprecated interface (2 stars)
+### 5. Deprecated interface (2 stars)
 - **Rješenje:** Ovaj izazov je slučajno riješen. Prilikom pisanja žalbe, navodno možemo prikačiti samo PDF dokument. Međutim, ako pogledamo kod, primijetićemo da će i XML dokument dozvoljen. Kačenjem XML dokumenta, riješili smo ovaj problem.
 - **Klasa:** Security misconfiguration
 
-## 6. Captcha Bypass (3 stars)
+### 6. Captcha Bypass (3 stars)
 - **Rješenje:** Uđemo na stranicu gdje se daje review. Prije nego što potvrdimo review, uključimo intercept na Burp-u. Nakon što zahtjev stigne, poslaćemo ga repeater-u. Tu ćemo namjestiti da se zahjev ponovi 10 ili više puta. Ovo je takođe moguće riješiti i ručno, samo je bitno poslati više od 9 zahtjeva za manje od 20 sekundi.
 - **Klasa:** Broken Anti Automation
