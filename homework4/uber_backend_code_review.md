@@ -16,7 +16,7 @@ Uber je mobilna i web aplikacija implemenitrana po ugledu na postojece aplikacij
 
 Postoje 4 tipa korisnika aplikacije: neregistorvani korisnik, registrovani korisnik, vozač i admin.
 
-Aplikacija pruža neregistrovanim korisnicima mogućnost registracije, logina ili praćenja stanja zauzetosti svih vozila,prikazano preko mape. Registrovani korisnici mogu da naruče vozilo/prevoz (pri čemu navode parametre poput tipa vozila, prevoza kućnih ljubimaca, bebe u autu itd) ili da izvrše rezervaciju istog. U realnom vremenu mogu da prate kretanje svog vozila i da šalju poruke svom vozaču ili grupi sa kojom se voze. Nakon završetka vožnje, mogu da ostave ocjenu i komentar vozaču ili vozilu. Pored navedenih osnovnih funkcionalnosti, korisnik takođe može da vidi istoriju svih svojih akcija na sistemu, kao i statistiku o finansijama. 
+Aplikacija pruža neregistrovanim korisnicima mogućnost registracije, logina ili praćenja stanja zauzetosti svih vozila, sto se prati preko mape. Registrovani korisnici mogu da naruče vozilo/prevoz (pri čemu navode parametre poput tipa vozila, prevoza kućnih ljubimaca, bebe u autu, itd) ili da izvrše rezervaciju istog. U realnom vremenu mogu da prate kretanje vozila i da šalju poruke svom vozaču ili grupi sa kojom se voze. Nakon završetka vožnje, mogu da ostave ocjenu i komentar vozaču ili vozilu. Pored navedenih osnovnih funkcionalnosti, korisnik takođe može da vidi istoriju svih svojih akcija na sistemu, chat-ove sa ostalim korisnicima, kao i statistiku o finansijama. 
 
 Projekat se sastoji iz 3 komponente: 
 - backend - implementiran u programskom jeziku Java, koristenjem Spring Boot radnog okvira
@@ -65,32 +65,32 @@ spring.mail.password=uitjivuciqdglsrh**
 spring.mail.properties.mail.smtp.auth=true
 spring.mail.properties.mail.smtp.starttls.enable=true
 
-U okviru sistema za kontrolu verzija, pronadjen je konfiguracioni fajl koji sadrzi kredencijale za rad sa mail serverom. Koristenjem ovih kredencijala, bilo ko bi mogao da manipulise slanjem i primanjem mejlova u okviru nase aplikacije. Maliciozni subjekt moze da salje lazne mejlove u ime nase aplikacije, cime je moguce navesti korisnike na oktrivanje njihovih privatnih informacija ili npr slati uvredljive poruke zbog kojih bi nasa aplikacija izgubila korisnike ili bila krivicno optuzena.
+U okviru sistema za kontrolu verzija, pronadjen je konfiguracioni fajl koji sadrzi kredencijale za rad sa mail serverom. Koristenjem ovih kredencijala, bilo ko bi mogao da manipulise slanjem i primanjem mejlova u okviru nase aplikacije. Maliciozni subjekt moze da salje lazne mejlove u ime nase aplikacije, cime je moguce navesti korisnike na oktrivanje njihovih privatnih informacija ili slati uvredljive poruke zbog kojih bi nasa aplikacija izgubila korisnike ili bila krivicno ugrozena.
 
 ### 5. Korisnik moze da prisupi podacima drugog korisnika
 U okviru aplikcije postoji autorizacija i autentifikacija, te je time ograniceno koji korisnik (po svojoj ulozi) moze da pozove koju funkciju sa servera. Medjutim problem je u tome sto ne postoji zastita pristupa izmedju korisnika koji pripadaju istoj grupi. Zbog ovoga korisnik moze slanjem zahtjeva nasoj serverskoj aplikacji da pristupi podacima drugog korisnika.
 
 ### 6. Prenos osjetljvih informacija preko interneta
-U okviru projekta koristena je komunikacija preko HTTP-a, cime podaci koji se prenose između klijenta i se servera šalju u običnom tekstu, što ih čini ranjivim na presretanje od strane napadača (Man-in-the-Middle napadi). Ovo uključuje osjetljive informacije kao što su korisnička imena, lozinke, tokeni sesije i drugi povjerljivi podaci.
+U okviru projekta koristena je komunikacija preko HTTP protokola, cime podaci koji se prenose između klijenta i servera se šalju u običnom tekstu, što ih čini ranjivim na presretanje od strane napadača (Man-in-the-Middle napadi). Ovo uključuje osjetljive informacije kao što su korisnička imena, lozinke, tokeni sesije i drugi povjerljivi podaci.
 
 ## D. Preporuke za poboljšanje koda
 ### 1. Otkrivanje informacija preko stack trace-a
-Nacin da otklonimo objasnjenju ranjivost je da pošaljemo korisniku opštiju poruku o grešci koja otkriva manje informacija. Takodje bismo mogli potpuno da uklonimo praćenje steka ili da logujemo poruku samo na serveru.
+Nacin da otklonimo spomenutu ranjivost je da pošaljemo korisniku opštiju poruku o grešci koja otkriva manje informacija. Takodje bismo mogli potpuno da uklonimo praćenje steka ili da logujemo poruku samo na serveru.
 ### 2. Onesposobljena Spring CSRF zaštita
  Kada koristimo Spring, zaštita CSRF (falsifikovanje zahtjeva na više lokacija) je podrazumjevano omogućena. Spring-ova preporuka je da koristimo CSRF zaštitu za svaki zahtjev koji bi obični korisnici mogli da obrađuju preko pretraživača.
  Ako koristimo JWT Tokene, trebalo bi da za cookie stavimo atribut SameSite na _Strict_ ili _Lax_, sto može pomoći u ublažavanju CSRF napada ograničavanjem opsega cookie-a na same-site zahtjeve.
  Takodje bi bilo dobro da validiramo zaglavlja Origin ili Referer dolaznih zahteva da bismo bili sigurni da potiču sa očekivanog domena.
  ### 3. Kredencijali za bazu sacuvani u okviru git sistema za pracenje verzija
-Aplikacija bi trebalo da skladišti svoje tajne van samog izvornog koda tj takvi podaci se cuvaju kroz promenljive okruženja (environment variables) ili konfiguracione datoteke. Takve datoteke ne bi trebalo da se nadju u okviru sistema za pacenje verzija jer bi postale dostupne svima koji imaju pristup tom repozitorijumu. Cuvajuci ove datoteke povjerljivim, ograničava se i pristup produkcionim tajnama/kredencijalima. Ukoliko su tajne vec vidljive u okviru sistema za kontrolu verzija, neophodno je promijeniti kredencijale i ne dostaviti promjene sistemu za kontrolu verzija.
+Aplikacija bi trebalo da skladišti svoje tajne van samog izvornog koda tj takvi podaci obicno se cuvaju kroz promenljive okruženja (environment variables) ili konfiguracione datoteke. Takve datoteke ne bi trebalo da se nadju u okviru sistema za pacenje verzija jer bi postale dostupne svima koji imaju pristup tom repozitorijumu. Cuvajuci ove datoteke povjerljivim, ograničava se i pristup produkcionim tajnama/kredencijalima. Ukoliko su tajne vec vidljive u okviru sistema za kontrolu verzija, neophodno je promijeniti kredencijale i ne dostaviti promjene putem sistema za kontrolu verzija.
 
 ### 4. Kredencijali za mail server sacuvani u okviru git sistema za pracenje verzija
 Isto kao prethodno
 
 ### 5. Korisnik moze da prisupi podacima drugog korisnika
-Opisani problem moze se rijesiti tako sto bismo vrsili provjeru pristupa u okviru samih funckija. Mozemo iz tokena koji se nalazi u zahtjevu da dobavimo ko je korisnik koji salje zahtjev i provjerimo da li mu je dozvoljeno da pristupi odgovarajucem resursu (da li su podaci vezani za njegov profil). Sam token je enkriptovan tako da nemamo problema sa Man in the Middle napadom ili izmjene informacija korisnika u okviru samoga tokena.
+Opisani problem moze se rijesiti tako sto bismo vrsili provjeru pristupa u okviru samih funckija. Mozemo iz tokena koji se nalazi u zahtjevu da dobavimo koji korisnik salje zahtjev i provjerimo da li mu je dozvoljeno da pristupi odgovarajucem resursu (da li su podaci vezani za njegov profil). Sam token je enkriptovan tako da nemamo problema sa Man in the Middle napadom ili izmjene informacija korisnika u okviru samoga tokena.
 
 ### 6. Prenos osjetljivih informacja preko interneta
-Problem se moze rijesiti koristenjem https protokola umjesto http protokola. HTTPS šifruje podatke koji se prenose između klijenta i servera koristeći SSL/TLS protokole, obezbeđujući poverljivost, integritet i autentičnost.
+Problem se moze rijesiti koristenjem HTTPS protokola umjesto HTTP protokola. HTTPS šifruje podatke koji se prenose između klijenta i servera koristeći SSL/TLS protokole, obezbeđujući poverljivost, integritet i autentičnost.
 
 ## E. Ostale informacije
 
