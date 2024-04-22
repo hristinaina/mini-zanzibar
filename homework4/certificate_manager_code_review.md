@@ -68,5 +68,5 @@ Tipovi korisnika su admini i obični korisnici. Admin je vlasnik root sertifikat
 ## E. Vrijeme provedeno pregledajući kod i broj detektovanih defekata
 Vrijeme: ~ 4 sata<br>
 Broj detektovanih defekata ručnom analizom: 6<br>
-Broj detektovanih defekata statičkom analizom: 4<br>
+Broj detektovanih defekata statičkom analizom pomoću alata: 4<br>
 Ukupan broj različitih detektovanih defekata: 8 <br>
