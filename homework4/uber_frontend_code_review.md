@@ -89,4 +89,4 @@ Nad kodom je pokrenut [Angular ESLint](https://github.com/angular-eslint/angular
 ### 6. uloženo vreme
 - vreme provedeno u analizi koda: oko 3.5, 4 sata
 - broj identifikovanih defekata ručnom analizom koda: 6
-- broj identifikovanih defekata statističkom analizom koda: 259
+- broj identifikovanih defekata statičkom analizom koda: 259
