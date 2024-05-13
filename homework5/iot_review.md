@@ -1,7 +1,7 @@
 ## Uvod
 Cilj ovoga zadatka je da konfigurisemo serversku masinu za deployment aplikacije. Aplikacija ciji deployment se vrsi je projekat implementiran za kurs IOT (Internet of Things), pod nazivom Smart Home. Ideja projekta je da imamo server ka kojem se salju podaci sa RPI uredjaja i taj server vrsi kontrolu i upravljanje nad tim podacima. Podrzan je i web interfejs u okviru aplikacije, ali za ovaj zadatak ce biti bitan samo serverski dio.
 
-Važno je pravilno podesiti server kako bismo osigurali sigurnost, performanse i pouzdanost aplikacije. U nastavku bice opisani koraci preduzeti za konfiguraciju serverkse masine.
+Važno je pravilno podesiti serversku masinu kako bismo osigurali sigurnost, performanse i pouzdanost aplikacije. U nastavku bice opisani koraci preduzeti za konfiguraciju serverkse masine.
 
 ## Provjera operativnog sistema
 Operativni sistem je bitan aspekat da bismo osigurali da koristimo najnovije verzije softvera i da su ispravke sigurnosnih propusta primjenjene. Trenutna verzija sistema na kojem ce biti vrsen deployment projekta je Ubuntu 24.04 LTS. Ova verzija je ujedno i najnovija stabilna verzija (obecava se da ce biti podrzana narednih 5 godina), sto je bitno jer znamo da ce server na kojem podizemo aplikaciju biti i u buducnosti podrzan. Ranjivosti ovoga operativnog sistema moguce je vidjeti na iducem linku: https://ubuntu.com/security/notices?order=newest&release=noble&details=
@@ -13,7 +13,7 @@ Za vremensku zonu je postavljen Belgrade/Europe komandom __sudo timedatectl set-
 
 ## Instalacija paketa
 U okviru konfiguracije servera za deployment projekta bitno je instalirati neophodne pakete i provjeriti da li oni sadrze neke ranjvosti. 
-Instalirani su: __TODO__
+Instalirani su: python3, __...__
 
 ## Logging
 Logovanje je konfigurisano u okviru */etc/rsyslog.conf* fajla i ostavljena je standardna konfiguracija. Time je obezbijedjeno da se logovanje vrsi samo lokalno i ne vrsi se nikakav backup na remote server.
