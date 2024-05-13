@@ -28,5 +28,5 @@ SmartHome aplikacija (serverski dio) trci na portu 8080. Dozvoljen je pristup ap
 Kljucevi su generisani komandom __ssh-keygen -t rsa -b 4096__. Nakon sto su kljucevi geenrisani, javni kljuc je prenijet na ssh server i to se radi komandom __ssh-copy-id -i ~/.ssh/id_rsa.pub username@server_ip__. Na serveru je omogucen ssh pristup koristenjem kljuceva, a onemogucen pristup koristenjem lozinke. To se podesava u okviru */etc/ssh/sshd_config* datoteke. Nakon ovih postavki mozemo da se prijavimo na server bez unosenja lozinke, vec koristenjem naseg privatnog kljuca. Iz nekog razloga mi ssh username@server_ip sad izbacuje gresku Permission denied (publickey) :(
 
 
-## Pratite performanse sistema
-Logovanje da bismo pratili performanse aplikacije i znali koliko resursa treba da dodijelimo serveru.
+## Pracenje performansi sistema
+Vrsi se logovanje performansi da bismo pratili performanse aplikacije i znali koliko resursa treba da dodijelimo serveru. Da bismo aktivirali logovanje, potrebno je da kliknemo __ctrl+shift+L__. Kada zavrsimo pregled, ponovo unesemo komandu i sacuvani fajl bice na lokaciji *AppData\Local\AMD\CN*.
