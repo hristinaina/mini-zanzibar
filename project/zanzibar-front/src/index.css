@@ -1,0 +1,13 @@
+body {
+  margin: 0;
+  line-height: 1.5;
+  font-family: "Space Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
