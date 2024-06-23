@@ -2,17 +2,18 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"mini-zanzibar/config"
+	"mini-zanzibar/routes"
 )
 
 func main() {
 	router := gin.Default()
+	router.Use(config.SetupCORS())
 
-	router.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Hello, world!",
-		})
-	})
+	levelDb := config.InitLevelDB()
+	//defer config.CloseLevelDB(levelDb)
 
+	routes.SetupRoutes(router, levelDb)
 	err := router.Run(":8081")
 	if err != nil {
 		return

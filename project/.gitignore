@@ -48,5 +48,6 @@ bower_components
 psd
 thumb
 sketch
+mini-zanzibar/databases/leveldb/*
 
 # End of https://www.toptal.com/developers/gitignore/api/go,react
