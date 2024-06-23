@@ -2,18 +2,26 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/hashicorp/consul/api"
 	"github.com/syndtr/goleveldb/leveldb"
 	"mini-zanzibar/controllers"
 )
 
-func SetupRoutes(r *gin.Engine, levelDB *leveldb.DB) {
-	routes := r.Group("/api/")
+func SetupRoutes(r *gin.Engine, levelDB *leveldb.DB, consulDB *api.Client) {
+	levelDBRoutes := r.Group("/api/leveldb/")
 	{
 		levelDBController := controllers.NewLevelDBController(levelDB)
-		routes.GET("all", levelDBController.Get)
-		routes.GET(":key", levelDBController.GetByKey)
-		routes.POST("", levelDBController.Post)
-		routes.DELETE(":key", levelDBController.Delete)
+		levelDBRoutes.GET("all", levelDBController.Get)
+		levelDBRoutes.GET(":key", levelDBController.GetByKey)
+		levelDBRoutes.POST("", levelDBController.Post)
+		levelDBRoutes.DELETE(":key", levelDBController.Delete)
+	}
+
+	consulDBRoutes := r.Group("/api/consuldb/")
+	{
+		consulDBController := controllers.NewConsulDBController(consulDB)
+		consulDBRoutes.GET("all", consulDBController.Get)
+
 	}
 
 }
