@@ -4,6 +4,7 @@ import (
 	"back/repositories"
 	"database/sql"
 	"errors"
+	"fmt"
 	"os"
 	"strconv"
 	"time"
@@ -27,9 +28,17 @@ type LoginInput struct {
 }
 
 func (us UserService) Login(input LoginInput) (string, error) {
+	users := us.repo.GetAll()
+
+	for _, user := range users {
+		// Ovdje radite što želite sa svakim korisnikom (user)
+		fmt.Println(user.Email)
+	}
+
 	// looked up requested user by email
 	user, err := us.repo.GetUserByEmail(input.Email)
 	if err != nil {
+		fmt.Println("Ovde je greska!!")
 		return "", errors.New("invalid username or password")
 	}
 
@@ -51,6 +60,6 @@ func (us UserService) Login(input LoginInput) (string, error) {
 	if err != nil {
 		return "", errors.New("failed to create token")
 	}
-
+	fmt.Println("LAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
 	return tokenString, nil
 }

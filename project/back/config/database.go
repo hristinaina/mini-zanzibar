@@ -3,24 +3,24 @@ package config
 import (
 	"database/sql"
 	"fmt"
-	"log"
 
 	_ "github.com/lib/pq"
 )
 
-func SetupPostgres() {
+func SetupPostgres() (*sql.DB, error) {
 	connStr := "postgres://postgres:ftn@localhost/bezbednost?sslmode=disable"
 
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
-	defer db.Close()
 
 	err = db.Ping()
 	if err != nil {
-		log.Fatal("Failed to ping database:", err)
+		db.Close()
+		return nil, fmt.Errorf("failed to ping database: %v", err)
 	}
 
 	fmt.Println("Successfully connected to PostgreSQL database!")
+	return db, nil
 }

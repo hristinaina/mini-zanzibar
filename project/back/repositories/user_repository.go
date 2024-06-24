@@ -17,14 +17,14 @@ type UserRepositoryImpl struct {
 	db *sql.DB
 }
 
-var ErrUserNotFound = errors.New("User not found")
+var ErrUserNotFound = errors.New("user not found")
 
 func NewUserRepository(db *sql.DB) UserRepository {
 	return &UserRepositoryImpl{db: db}
 }
 
 func (res *UserRepositoryImpl) GetAll() []models.User {
-	query := "SELECT * FROM user"
+	query := "SELECT * FROM users"
 	rows, err := res.db.Query(query)
 	if CheckIfError(err) {
 		return nil
@@ -50,8 +50,8 @@ func (res *UserRepositoryImpl) GetAll() []models.User {
 
 func (res *UserRepositoryImpl) GetUserByEmail(email string) (*models.User, error) {
 	var user models.User
-
-	query := "SELECT * FROM user WHERE email = ?"
+	fmt.Println(email)
+	query := "SELECT * FROM users WHERE email = $1"
 	row := res.db.QueryRow(query, email)
 
 	err := row.Scan(&user.Id, &user.Name, &user.Surname, &user.Email, &user.Password)
@@ -61,14 +61,13 @@ func (res *UserRepositoryImpl) GetUserByEmail(email string) (*models.User, error
 		}
 		return nil, err
 	}
-
 	return &user, nil
 }
 
 func (res *UserRepositoryImpl) GetUserById(id int) (*models.User, error) {
 	var user models.User
 
-	query := "SELECT * FROM user WHERE id = ?"
+	query := "SELECT * FROM users WHERE id = $1"
 	row := res.db.QueryRow(query, id)
 
 	err := row.Scan(&user.Id, &user.Name, &user.Surname, &user.Email, &user.Password)
