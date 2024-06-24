@@ -70,6 +70,11 @@ func (cs *ConsulDBService) AddNamespace(namespaces dtos.Namespaces) error {
 }
 
 func (cs *ConsulDBService) DeleteNamespace(namespace string) error {
-	_, err := cs.db.KV().Delete(namespace, nil)
+	_, err := cs.GetByNamespace(namespace)
+	if err != nil {
+		return err
+	}
+	key := "namespace/" + namespace
+	_, err = cs.db.KV().Delete(key, nil)
 	return err
 }

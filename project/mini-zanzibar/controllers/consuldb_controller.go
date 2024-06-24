@@ -55,7 +55,7 @@ func (cc *ConsulDBController) Delete(c *gin.Context) {
 	key := c.Param("key")
 	err := cc.service.DeleteNamespace(key)
 	if err != nil {
-		errs.InternalServerError(c, err)
+		errs.KeyNotFoundError(c)
 		return
 	}
 
