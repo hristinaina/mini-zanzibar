@@ -26,35 +26,29 @@ func (cc *ConsulDBController) Get(c *gin.Context) {
 	c.JSON(200, data)
 }
 
-func (cc *ConsulDBController) Post(c *gin.Context) {
-	var kv dtos.KeyValue
-	if err := c.ShouldBindJSON(&kv); err != nil {
-		errs.InternalServerError(c, err)
+func (cc *ConsulDBController) AddNamespace(c *gin.Context) {
+	var namespaces dtos.Namespaces
+	if err := c.BindJSON(&namespaces); err != nil {
+		errs.BadRequestError(c, err)
 		return
 	}
-	err := cc.service.AddNamespace(kv)
+	err := cc.service.AddNamespace(namespaces)
 	if err != nil {
 		errs.InternalServerError(c, err)
-		return
 	}
 
 	c.JSON(200, gin.H{"message": "Key-Value pair saved"})
-
 }
 
-func (cc *ConsulDBController) GetByKey(c *gin.Context) {
+func (cc *ConsulDBController) GetByNamespace(c *gin.Context) {
 	key := c.Param("key")
-	kvPair, err := cc.service.GetByNamespace(key)
-	if kvPair == nil {
+	namespace, err := cc.service.GetByNamespace(key)
+	if err != nil {
 		errs.KeyNotFoundError(c)
 		return
 	}
-	if err != nil {
-		errs.InternalServerError(c, err)
-		return
-	}
 
-	c.JSON(200, gin.H{"key": kvPair.Key, "value": string(kvPair.Value)})
+	c.JSON(200, namespace)
 }
 
 func (cc *ConsulDBController) Delete(c *gin.Context) {

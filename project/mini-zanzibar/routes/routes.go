@@ -21,8 +21,8 @@ func SetupRoutes(r *gin.Engine, levelDB *leveldb.DB, consulDB *api.Client) {
 	{
 		consulDBController := controllers.NewConsulDBController(consulDB)
 		consulDBRoutes.GET("all", consulDBController.Get)
-		consulDBRoutes.GET(":key", consulDBController.GetByKey)
-		consulDBRoutes.POST("", consulDBController.Post)
+		consulDBRoutes.GET(":key", consulDBController.GetByNamespace)
+		consulDBRoutes.POST("", consulDBController.AddNamespace)
 		consulDBRoutes.DELETE(":key", consulDBController.Delete)
 	}
 

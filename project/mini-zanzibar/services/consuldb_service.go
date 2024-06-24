@@ -1,14 +1,16 @@
 package services
 
 import (
+	"encoding/json"
 	"github.com/hashicorp/consul/api"
 	"mini-zanzibar/dtos"
+	"mini-zanzibar/errors"
 )
 
 type IConsulDBService interface {
 	GetAll() (map[string]string, error)
-	GetByNamespace(namespace string) (*api.KVPair, error)
-	AddNamespace(json dtos.KeyValue) error
+	GetByNamespace(namespace string) (dtos.Namespace, error)
+	AddNamespace(namespaces dtos.Namespaces) error
 	DeleteNamespace(namespace string) error
 }
 
@@ -33,19 +35,38 @@ func (cs *ConsulDBService) GetAll() (map[string]string, error) {
 	return data, nil
 }
 
-func (cs *ConsulDBService) GetByNamespace(namespace string) (*api.KVPair, error) {
-	kvPair, _, err := cs.db.KV().Get(namespace, nil)
-	return kvPair, err
+func (cs *ConsulDBService) GetByNamespace(namespace string) (dtos.Namespace, error) {
+	key := "namespace/" + namespace
+	kvPair, _, err := cs.db.KV().Get(key, nil)
+	if err != nil {
+		return dtos.Namespace{}, err
+	}
+	if kvPair == nil {
+		return dtos.Namespace{}, errors.CustomError{Code: 404, Message: "Namespace not found."}
+	}
+	var namespaceData dtos.Namespace
+	if err := json.Unmarshal(kvPair.Value, &namespaceData); err != nil {
+		return dtos.Namespace{}, err
+	}
+	return namespaceData, err
 }
 
-func (cs *ConsulDBService) AddNamespace(kv dtos.KeyValue) error {
-	kvPair := &api.KVPair{
-		Key:   kv.Key,
-		Value: []byte(kv.Value),
-	}
+func (cs *ConsulDBService) AddNamespace(namespaces dtos.Namespaces) error {
+	for _, namespace := range namespaces.Namespaces {
+		key := "namespace/" + namespace.Namespace
+		value, err := json.Marshal(namespace)
+		if err != nil {
+			return err
+		}
 
-	_, err := cs.db.KV().Put(kvPair, nil)
-	return err
+		kv := cs.db.KV()
+		p := &api.KVPair{Key: key, Value: value}
+		_, err = kv.Put(p, nil)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func (cs *ConsulDBService) DeleteNamespace(namespace string) error {
