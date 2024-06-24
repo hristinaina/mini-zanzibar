@@ -30,6 +30,7 @@ func SetupRoutes(r *gin.Engine, levelDB *leveldb.DB, consulDB *api.Client) {
 	{
 		aclController := controllers.NewACLController(levelDB, consulDB)
 		aclRoutes.POST("", aclController.Add)
+		aclRoutes.PUT("", aclController.Check)
 	}
 
 }

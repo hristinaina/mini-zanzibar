@@ -32,3 +32,17 @@ func (aclc ACLController) Add(c *gin.Context) {
 
 	c.JSON(200, gin.H{"message": "Relation successfully saved"})
 }
+
+func (aclc ACLController) Check(c *gin.Context) {
+	var relation dtos.Relation
+	if err := c.ShouldBind(&relation); err != nil {
+		errs.BadRequestError(c, err)
+		return
+	}
+	authorized, err := aclc.service.CheckACL(relation)
+	if err != nil {
+		errs.InternalServerError(c, err)
+		return
+	}
+	c.JSON(200, authorized)
+}

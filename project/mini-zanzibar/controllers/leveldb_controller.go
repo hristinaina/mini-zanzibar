@@ -59,7 +59,7 @@ func (lc LevelDBController) GetByKey(c *gin.Context) {
 
 	c.JSON(200, gin.H{
 		"key":   key,
-		"value": string(value),
+		"value": value,
 	})
 }
 

@@ -6,7 +6,7 @@ import (
 
 type ILevelDBService interface {
 	GetAll() (map[string]string, error)
-	GetByKey(key string) ([]byte, error)
+	GetByKey(key string) (string, error)
 	Add(key, value string) error
 	Delete(key string) error
 }
@@ -36,8 +36,9 @@ func (ls *LevelDBService) GetAll() (map[string]string, error) {
 	return data, nil
 }
 
-func (ls *LevelDBService) GetByKey(key string) ([]byte, error) {
-	return ls.db.Get([]byte(key), nil)
+func (ls *LevelDBService) GetByKey(key string) (string, error) {
+	value, err := ls.db.Get([]byte(key), nil)
+	return string(value), err
 }
 
 func (ls *LevelDBService) Add(key, value string) error {
