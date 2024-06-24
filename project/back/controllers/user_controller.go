@@ -3,7 +3,6 @@ package controllers
 import (
 	"back/services"
 	"database/sql"
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -26,7 +25,6 @@ func (uc UserController) Login(c *gin.Context) {
 
 	token, err := uc.service.Login(input)
 	if err != nil {
-		fmt.Println("greska 2")
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

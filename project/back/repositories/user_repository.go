@@ -50,7 +50,7 @@ func (res *UserRepositoryImpl) GetAll() []models.User {
 
 func (res *UserRepositoryImpl) GetUserByEmail(email string) (*models.User, error) {
 	var user models.User
-	fmt.Println(email)
+
 	query := "SELECT * FROM users WHERE email = $1"
 	row := res.db.QueryRow(query, email)
 

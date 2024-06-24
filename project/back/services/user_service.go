@@ -4,13 +4,12 @@ import (
 	"back/repositories"
 	"database/sql"
 	"errors"
-	"fmt"
 	"os"
 	"strconv"
 	"time"
 
+	"github.com/alexedwards/argon2id"
 	"github.com/golang-jwt/jwt/v4"
-	"golang.org/x/crypto/bcrypt"
 )
 
 type UserService struct {
@@ -28,23 +27,18 @@ type LoginInput struct {
 }
 
 func (us UserService) Login(input LoginInput) (string, error) {
-	users := us.repo.GetAll()
-
-	for _, user := range users {
-		// Ovdje radite što želite sa svakim korisnikom (user)
-		fmt.Println(user.Email)
-	}
-
 	// looked up requested user by email
 	user, err := us.repo.GetUserByEmail(input.Email)
 	if err != nil {
-		fmt.Println("Ovde je greska!!")
 		return "", errors.New("invalid username or password")
 	}
 
-	// compare sent password with saved user hash password
-	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(input.Password))
+	// Compare sent password with saved user hashed password using Argon2
+	match, err := argon2id.ComparePasswordAndHash(input.Password, user.Password)
 	if err != nil {
+		return "", errors.New("error comparing passwords")
+	}
+	if !match {
 		return "", errors.New("invalid username or password")
 	}
 
@@ -60,6 +54,6 @@ func (us UserService) Login(input LoginInput) (string, error) {
 	if err != nil {
 		return "", errors.New("failed to create token")
 	}
-	fmt.Println("LAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+
 	return tokenString, nil
 }
