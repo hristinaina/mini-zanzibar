@@ -46,5 +46,9 @@ func (ls *LevelDBService) Add(key, value string) error {
 }
 
 func (ls *LevelDBService) Delete(key string) error {
+	_, err := ls.GetByKey(key)
+	if err != nil {
+		return err
+	}
 	return ls.db.Delete([]byte(key), nil)
 }

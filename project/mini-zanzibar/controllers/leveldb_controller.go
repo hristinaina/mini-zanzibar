@@ -68,7 +68,7 @@ func (lc LevelDBController) Delete(c *gin.Context) {
 
 	err := lc.service.Delete(key)
 	if err != nil {
-		errs.InternalServerError(c, err)
+		errs.KeyNotFoundError(c)
 		return
 	}
 

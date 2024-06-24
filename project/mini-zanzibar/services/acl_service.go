@@ -42,14 +42,10 @@ func (acls *ACLService) createKeyValue(relation dtos.Relation) (string, string) 
 	return relation.Object + "+" + relation.User, relation.Relation
 }
 
-// TODO: add second type of createKeyValue fn
-
+// isRelationSubset checks hierarchy of relations
 func (acls *ACLService) isRelationSubset(relation dtos.Relation, actualRelation string) bool {
 	relationConfig, err := acls.consulDBService.GetByNamespace(acls.extractNamespace(relation.Object))
-	if err != nil {
-		return false
-	}
-	if len(relationConfig.Relations[relation.Relation]) == 0 {
+	if err != nil || len(relationConfig.Relations[relation.Relation]) == 0 {
 		return false
 	}
 	var currentRelation = relationConfig.Relations[relation.Relation][0]
