@@ -4,46 +4,37 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/hashicorp/consul/api"
 	"mini-zanzibar/dtos"
+	errs "mini-zanzibar/errors"
+	"mini-zanzibar/services"
 )
 
 type ConsulDBController struct {
-	db *api.Client
+	db      *api.Client
+	service services.IConsulDBService
 }
 
 func NewConsulDBController(db *api.Client) ConsulDBController {
-	return ConsulDBController{db: db}
+	return ConsulDBController{db: db, service: services.NewConsulDBService(db)}
 }
 
 func (cc *ConsulDBController) Get(c *gin.Context) {
-	pairs, _, err := cc.db.KV().List("", nil)
+	data, err := cc.service.GetAll()
 	if err != nil {
-		c.JSON(500, gin.H{"error": err.Error()})
+		errs.InternalServerError(c, err)
 		return
 	}
-
-	data := make(map[string]string)
-	for _, pair := range pairs {
-		data[pair.Key] = string(pair.Value)
-	}
-
 	c.JSON(200, data)
 }
 
 func (cc *ConsulDBController) Post(c *gin.Context) {
 	var kv dtos.KeyValue
 	if err := c.ShouldBindJSON(&kv); err != nil {
-		c.JSON(400, gin.H{"error": err.Error()})
+		errs.InternalServerError(c, err)
 		return
 	}
-
-	kvPair := &api.KVPair{
-		Key:   kv.Key,
-		Value: []byte(kv.Value),
-	}
-
-	_, err := cc.db.KV().Put(kvPair, nil)
+	err := cc.service.AddNamespace(kv)
 	if err != nil {
-		c.JSON(500, gin.H{"error": err.Error()})
+		errs.InternalServerError(c, err)
 		return
 	}
 
@@ -53,13 +44,13 @@ func (cc *ConsulDBController) Post(c *gin.Context) {
 
 func (cc *ConsulDBController) GetByKey(c *gin.Context) {
 	key := c.Param("key")
-	kvPair, _, err := cc.db.KV().Get(key, nil)
-	if err != nil {
-		c.JSON(500, gin.H{"error": err.Error()})
+	kvPair, err := cc.service.GetByNamespace(key)
+	if kvPair == nil {
+		errs.KeyNotFoundError(c)
 		return
 	}
-	if kvPair == nil {
-		c.JSON(404, gin.H{"error": "Key not found"})
+	if err != nil {
+		errs.InternalServerError(c, err)
 		return
 	}
 
@@ -68,9 +59,9 @@ func (cc *ConsulDBController) GetByKey(c *gin.Context) {
 
 func (cc *ConsulDBController) Delete(c *gin.Context) {
 	key := c.Param("key")
-	_, err := cc.db.KV().Delete(key, nil)
+	err := cc.service.DeleteNamespace(key)
 	if err != nil {
-		c.JSON(500, gin.H{"error": err.Error()})
+		errs.InternalServerError(c, err)
 		return
 	}
 

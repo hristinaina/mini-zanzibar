@@ -5,8 +5,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/syndtr/goleveldb/leveldb"
 	"mini-zanzibar/dtos"
+	errs "mini-zanzibar/errors"
 	"mini-zanzibar/services"
-	"net/http"
 )
 
 type LevelDBController struct {
@@ -21,7 +21,7 @@ func NewLevelDBController(db *leveldb.DB) LevelDBController {
 func (lc LevelDBController) Get(c *gin.Context) {
 	data, err := lc.service.GetAll()
 	if err != nil {
-		ErrorJSON(c, err)
+		errs.InternalServerError(c, err)
 		return
 	}
 	c.JSON(200, data)
@@ -31,13 +31,13 @@ func (lc LevelDBController) Post(c *gin.Context) {
 	var kv dtos.KeyValue
 
 	if err := c.ShouldBindJSON(&kv); err != nil {
-		ErrorJSON(c, err)
+		errs.InternalServerError(c, err)
 		return
 	}
 
 	err := lc.service.Add(kv.Key, kv.Value)
 	if err != nil {
-		ErrorJSON(c, err)
+		errs.InternalServerError(c, err)
 		return
 	}
 
@@ -51,12 +51,10 @@ func (lc LevelDBController) GetByKey(c *gin.Context) {
 
 	value, err := lc.service.GetByKey(key)
 	if errors.Is(err, leveldb.ErrNotFound) {
-		c.JSON(http.StatusNotFound, gin.H{
-			"error": "Key not found",
-		})
+		errs.KeyNotFoundError(c)
 		return
 	} else if err != nil {
-		ErrorJSON(c, err)
+		errs.InternalServerError(c, err)
 		return
 	}
 
@@ -71,17 +69,11 @@ func (lc LevelDBController) Delete(c *gin.Context) {
 
 	err := lc.service.Delete(key)
 	if err != nil {
-		ErrorJSON(c, err)
+		errs.InternalServerError(c, err)
 		return
 	}
 
 	c.JSON(200, gin.H{
 		"message": "Key deleted",
-	})
-}
-
-func ErrorJSON(c *gin.Context, err error) {
-	c.JSON(http.StatusInternalServerError, gin.H{
-		"error": err.Error(),
 	})
 }
