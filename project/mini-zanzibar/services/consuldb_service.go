@@ -53,6 +53,9 @@ func (cs *ConsulDBService) GetByNamespace(namespace string) (dtos.Namespace, err
 
 func (cs *ConsulDBService) AddNamespace(namespaces dtos.Namespaces) error {
 	for _, namespace := range namespaces.Namespaces {
+		if cs.isCyclicGraph(namespace) {
+			return errors.CustomError{Code: 400, Message: "Invalid configuration"}
+		}
 		key := "namespace/" + namespace.Namespace
 		value, err := json.Marshal(namespace)
 		if err != nil {
@@ -77,4 +80,29 @@ func (cs *ConsulDBService) DeleteNamespace(namespace string) error {
 	key := "namespace/" + namespace
 	_, err = cs.db.KV().Delete(key, nil)
 	return err
+}
+
+func (cs *ConsulDBService) isCyclicGraph(namespace dtos.Namespace) bool {
+	for key, value := range namespace.Relations {
+		if len(value) == 0 {
+			continue
+		}
+		if Contains(namespace.Relations[value[0]], key) {
+			return true
+		}
+		if len(namespace.Relations[value[0]]) == 0 {
+			continue
+		}
+		currentRelation := namespace.Relations[value[0]][0]
+		for {
+			if len(namespace.Relations[currentRelation]) == 0 {
+				break
+			}
+			if Contains(namespace.Relations[currentRelation], key) {
+				return true
+			}
+			currentRelation = namespace.Relations[currentRelation][0]
+		}
+	}
+	return false
 }

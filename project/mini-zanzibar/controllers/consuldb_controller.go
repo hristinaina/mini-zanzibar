@@ -33,7 +33,8 @@ func (cc *ConsulDBController) AddNamespace(c *gin.Context) {
 	}
 	err := cc.service.AddNamespace(namespaces)
 	if err != nil {
-		errs.InternalServerError(c, err)
+		errs.BadRequestError(c, err)
+		return
 	}
 
 	c.JSON(200, gin.H{"message": "Key-Value pair saved"})

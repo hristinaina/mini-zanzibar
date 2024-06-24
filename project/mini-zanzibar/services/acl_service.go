@@ -56,7 +56,7 @@ func (acls *ACLService) isRelationSubset(relation dtos.Relation, actualRelation 
 		if len(relationConfig.Relations[currentRelation]) == 0 {
 			return false
 		}
-		if acls.contains(relationConfig.Relations[currentRelation], actualRelation) {
+		if Contains(relationConfig.Relations[currentRelation], actualRelation) {
 			return true
 		}
 		currentRelation = relationConfig.Relations[currentRelation][0]
@@ -67,7 +67,7 @@ func (acls *ACLService) extractNamespace(object string) string {
 	return strings.Split(object, ":")[0]
 }
 
-func (acls *ACLService) contains(array []string, item string) bool {
+func Contains(array []string, item string) bool {
 	for _, i := range array {
 		if i == item {
 			return true
