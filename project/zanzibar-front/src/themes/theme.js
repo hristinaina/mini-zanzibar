@@ -3,22 +3,19 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2', // Customize your primary color here
+      main: '#c4ae78', 
     },
     secondary: {
-      main: '#dc004e', // Customize your secondary color here
+      main: '#c4ae78', 
     },
     background: {
-        default: '#3a0820',
-        paper: '#3a0820',
+        default: '#c4ae78',
+        paper: '#c4ae78',
     },
     text: {
         primary: '#000000',
         secondary:'#000000',
     },
-  },
-  typography: {
-    fontFamily: 'Roboto, sans-serif',
   },
 });
 

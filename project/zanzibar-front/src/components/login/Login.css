@@ -4,17 +4,10 @@
     align-items: center;
     justify-content: space-around;
     position: relative; /* Add this line */
-    background: linear-gradient(90deg, #ffffff 50%, var(--background-red) 50%);
+    background: linear-gradient(90deg, #ffffff 50%, #c4ae78 50%);
     color: black;
 }
 
-.top-right-logo {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 55px; /* Adjust the size as needed */
-    height: auto;
-}
 
 .left-side {
     text-align: center;
@@ -51,7 +44,7 @@
 }
 
 .edu-image {
-    max-width: 40%;
+    max-width: 30%;
     height: auto;
     margin-bottom: 3em;
 }
@@ -72,7 +65,7 @@
 }
 
 .reg {
-    color: var(--light-red) !important;
+    color: #c4ae78 !important;
 }
 
 input{

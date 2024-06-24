@@ -18,22 +18,13 @@ const Login = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await authService.validateUser();
-                console.log(result);
+                const result = authService.validateUser();
 
-                if (result.name === "student") {
-                    console.log("student");
-                    navigate('/programs');
-                } else if (result.name === "professor") {
-                    console.log("professor");
-                    navigate('/professor');
-                } else {
-                    console.log("login");
-                    navigate("/login");
-                }
+                if (result) {
+                    navigate('/home');
+                } 
             } catch (error) {
                 console.error('Error:', error);
-                handleClick();
             }
         };
 
@@ -49,28 +40,18 @@ const Login = () => {
 
     const handleLogin = async () => {
         try{
+            if (username.trim() == "" || password.trim() == "") {
+                setSnackbarMessage("Please fill all the fields!");
+                handleClick();
+                return;
+            }
             const result = await authService.loginUser(username, password);
             console.log(result);
             if (result) {
-                if (result.status === 200) {
-                    const result = await authService.validateUser();
-                    console.log(result);
-                    if (result === 'student') {
-                        navigate('/programs');
-                    } else if (result === 'professor') {
-                        navigate('/prof-mentorship');
-                    } else {
-                        navigate('/login');
-                    }
-                } else {
-                    setSnackbarMessage(result.error);
-                    handleClick();
-                }
-            }
-            else {
-                setSnackbarMessage("Invalid email or password");
+                navigate('/home');
+            } else {
+                setSnackbarMessage("Invalid input!");
                 handleClick();
-
             }
         }
         catch (error) {
@@ -118,12 +99,11 @@ const Login = () => {
     return (
         <ThemeProvider theme={lightTheme}>
             <div className="background">
-                <img src="/logo-white.png" className="top-right-logo" alt="Logo"/>
                 <div className="left-side" >
                     <p className="title-login">Login</p>
                     <form>
                         <div className="fields">
-                            <div className="label">Email:</div>
+                            <div className="label">Username:</div>
                             <TextField
                                 value={username}
                                 onChange={handleUsernameChange}
@@ -168,7 +148,7 @@ const Login = () => {
                         >
                             Login
                         </Button>
-                        <Link to="/reg" style={{textDecoration: "none"}}>
+                        <Link  style={{textDecoration: "none"}}>
                             <p className="reg" variant="contained" style={{textTransform: 'none'}}>No account yet? SIGN
                                 UP</p>
                         </Link>
@@ -182,10 +162,10 @@ const Login = () => {
                     </form>
                 </div>
                 <div className="right-side">
-                    <img src="/edu.gif" className="edu-image" alt="education image"/>
-                    <p className='title'>Welcome to <span style={{color: "var(--background-blue)"}}> RefLetter! </span>
+                    <img src="/sunflower.png" className="edu-image" alt="logo image"/>
+                    <p className='title'>Welcome to <span style={{color: "black"}}> SunDrive! </span>
                     </p>
-                    <p className='text'>Your Compass to Higher Education</p>
+                    <p className='text'>Organize all your documents in one place.</p>
                 </div>
             </div>
         </ThemeProvider>
