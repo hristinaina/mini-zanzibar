@@ -26,4 +26,10 @@ func SetupRoutes(r *gin.Engine, levelDB *leveldb.DB, consulDB *api.Client) {
 		consulDBRoutes.DELETE(":key", consulDBController.Delete)
 	}
 
+	aclRoutes := r.Group("/api/acl/")
+	{
+		aclController := controllers.NewACLController(levelDB, consulDB)
+		aclRoutes.POST("", aclController.Add)
+	}
+
 }

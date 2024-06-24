@@ -9,12 +9,11 @@ import (
 )
 
 type ConsulDBController struct {
-	db      *api.Client
 	service services.IConsulDBService
 }
 
 func NewConsulDBController(db *api.Client) ConsulDBController {
-	return ConsulDBController{db: db, service: services.NewConsulDBService(db)}
+	return ConsulDBController{service: services.NewConsulDBService(db)}
 }
 
 func (cc *ConsulDBController) Get(c *gin.Context) {

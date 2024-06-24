@@ -10,12 +10,11 @@ import (
 )
 
 type LevelDBController struct {
-	db      *leveldb.DB
 	service services.ILevelDBService
 }
 
 func NewLevelDBController(db *leveldb.DB) LevelDBController {
-	return LevelDBController{db: db, service: services.NewLevelDBService(db)}
+	return LevelDBController{service: services.NewLevelDBService(db)}
 }
 
 func (lc LevelDBController) Get(c *gin.Context) {
@@ -31,7 +30,7 @@ func (lc LevelDBController) Post(c *gin.Context) {
 	var kv dtos.KeyValue
 
 	if err := c.ShouldBindJSON(&kv); err != nil {
-		errs.InternalServerError(c, err)
+		errs.BadRequestError(c, err)
 		return
 	}
 
