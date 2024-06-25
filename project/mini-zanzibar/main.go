@@ -24,7 +24,7 @@ func main() {
 
 	routes.SetupRoutes(router, levelDb, consulDB)
 	// Run the server with HTTPS
-	if err := router.RunTLS(":8443", "../cert.pem", "../key.pem"); err != nil {
+	if err := router.RunTLS(":8443", "../server.crt", "../server.key"); err != nil {
 		fmt.Println("failed to run server: %v", err)
 	}
 }
