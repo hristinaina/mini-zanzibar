@@ -24,4 +24,14 @@ func SetupRoutes(r *gin.Engine, db *sql.DB) {
 		aclRoutes.POST("", middleware.RequireAuth, aclController.Add)
 		aclRoutes.PUT("", middleware.RequireAuth, aclController.Check)
 	}
+
+	nameSpaceRoutes := r.Group("/api/ns/")
+	{
+		middleware := middleware.NewMiddleware(db)
+		nsController := controllers.NewNSController()
+		nameSpaceRoutes.GET("all", middleware.RequireAuth, nsController.Get)
+		nameSpaceRoutes.GET(":key", middleware.RequireAuth, nsController.GetByNamespace)
+		nameSpaceRoutes.POST("", middleware.RequireAuth, nsController.AddNamespace)
+		nameSpaceRoutes.DELETE(":key", middleware.RequireAuth, nsController.Delete)
+	}
 }

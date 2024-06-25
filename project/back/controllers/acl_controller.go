@@ -1,9 +1,10 @@
 package controllers
 
 import (
+	"io/ioutil"
 	"net/http"
 
-	"back/dtos" // Assuming dtos package contains your DTOs like Relation
+	"back/dtos"
 	"back/services"
 
 	"github.com/gin-gonic/gin"
@@ -26,13 +27,20 @@ func (aclc ACLController) Add(c *gin.Context) {
 		return
 	}
 
-	err := aclc.service.AddRelation(relation)
+	resp, err := aclc.service.AddRelation(relation)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to add relation in Zanzibar"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to send request to Zanzibar"})
+		return
+	}
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to read response from Zanzibar"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Relation successfully saved in Zanzibar"})
+	c.Data(resp.StatusCode, resp.Header.Get("Content-Type"), body)
 }
 
 func (aclc ACLController) Check(c *gin.Context) {
@@ -42,11 +50,18 @@ func (aclc ACLController) Check(c *gin.Context) {
 		return
 	}
 
-	authorized, err := aclc.service.CheckRelation(relation)
+	resp, err := aclc.service.CheckRelation(relation)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to check relation in Zanzibar"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to send request to Zanzibar"})
+		return
+	}
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to read response from Zanzibar"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"authorized": authorized})
+	c.Data(resp.StatusCode, resp.Header.Get("Content-Type"), body)
 }
