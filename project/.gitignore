@@ -50,4 +50,6 @@ thumb
 sketch
 mini-zanzibar/databases/leveldb/*
 
+back/.env
+
 # End of https://www.toptal.com/developers/gitignore/api/go,react
