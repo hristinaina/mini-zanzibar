@@ -10,7 +10,12 @@ import (
 )
 
 func main() {
-	router := gin.Default()
+	// gin.SetMode(gin.ReleaseMode)
+
+	router := gin.New()
+	router.Use(gin.Logger())
+	router.Use(gin.Recovery())
+	router.SetTrustedProxies(nil)
 
 	// load data from .env
 	if err := godotenv.Load(); err != nil {
