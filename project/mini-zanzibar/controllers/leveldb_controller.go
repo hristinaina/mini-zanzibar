@@ -50,7 +50,7 @@ func (lc LevelDBController) GetByKey(c *gin.Context) {
 
 	value, err := lc.service.GetByKey(key)
 	if errors.Is(err, leveldb.ErrNotFound) {
-		errs.KeyNotFoundError(c)
+		errs.NotFoundError(c)
 		return
 	} else if err != nil {
 		errs.InternalServerError(c, err)
@@ -68,7 +68,7 @@ func (lc LevelDBController) Delete(c *gin.Context) {
 
 	err := lc.service.Delete(key)
 	if err != nil {
-		errs.KeyNotFoundError(c)
+		errs.NotFoundError(c)
 		return
 	}
 

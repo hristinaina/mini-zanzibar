@@ -33,7 +33,7 @@ func (cc *ConsulDBController) AddNamespace(c *gin.Context) {
 	}
 	err := cc.service.AddNamespace(namespaces)
 	if err != nil {
-		errs.BadRequestError(c, err)
+		errs.ReturnError(c, err)
 		return
 	}
 
@@ -44,7 +44,7 @@ func (cc *ConsulDBController) GetByNamespace(c *gin.Context) {
 	key := c.Param("key")
 	namespace, err := cc.service.GetByNamespace(key)
 	if err != nil {
-		errs.KeyNotFoundError(c)
+		errs.ReturnError(c, err)
 		return
 	}
 
@@ -55,7 +55,7 @@ func (cc *ConsulDBController) Delete(c *gin.Context) {
 	key := c.Param("key")
 	err := cc.service.DeleteNamespace(key)
 	if err != nil {
-		errs.KeyNotFoundError(c)
+		errs.NotFoundError(c)
 		return
 	}
 

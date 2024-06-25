@@ -26,10 +26,9 @@ func (aclc ACLController) Add(c *gin.Context) {
 
 	err := aclc.service.AddACL(relation)
 	if err != nil {
-		errs.BadRequestError(c, err)
+		errs.ReturnError(c, err)
 		return
 	}
-
 	c.JSON(200, gin.H{"message": "Relation successfully saved"})
 }
 
