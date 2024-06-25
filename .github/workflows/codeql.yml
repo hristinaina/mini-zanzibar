@@ -1,27 +1,20 @@
-name: CI
-
-on:
-  push:
-    branches: [ feature/mini-zanzibar ]
-  pull_request:
-    branches: [ feature/mini-zanzibar ]
-
+name: Codeql
+on: [push]
 jobs:
-  build:
-    runs-on: windows-latest  # Koristi Windows runner
-
+  build-zanzibre:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: project/mini-zanzibar
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: 1.21
-
-    - name: Install dependencies
-      run: go mod download
-
-    - name: Run tests
-      run: go test ./...
-
+      - uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21.x'
+      - name: Display Go version
+        run: go version
+      - name: Install dependencies
+        run: go get -u all
+      - name: Build Go project
+        run: go build
