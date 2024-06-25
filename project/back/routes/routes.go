@@ -17,7 +17,7 @@ func SetupRoutes(r *gin.Engine, db *sql.DB) {
 		userRoutes.POST("/logout", middleware.RequireAuth, authController.Logout)
 	}
 
-	aclRoutes := r.Group("/api/data")
+	aclRoutes := r.Group("/api/acl")
 	{
 		aclController := controllers.NewACLController()
 		middleware := middleware.NewMiddleware(db)
@@ -33,5 +33,14 @@ func SetupRoutes(r *gin.Engine, db *sql.DB) {
 		nameSpaceRoutes.GET(":key", middleware.RequireAuth, nsController.GetByNamespace)
 		nameSpaceRoutes.POST("", middleware.RequireAuth, nsController.AddNamespace)
 		nameSpaceRoutes.DELETE(":key", middleware.RequireAuth, nsController.Delete)
+	}
+
+	dataRoutes := r.Group("/api/data/")
+	{
+		dataController := controllers.NewDataController()
+		dataRoutes.GET("all", dataController.GetAll)
+		dataRoutes.GET(":key", dataController.GetByKey)
+		dataRoutes.POST("", dataController.Add)
+		dataRoutes.DELETE(":key", dataController.Delete)
 	}
 }
