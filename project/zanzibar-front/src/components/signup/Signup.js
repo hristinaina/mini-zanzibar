@@ -11,7 +11,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import {Switch, FormControlLabel} from '@mui/material';
 import {ThemeProvider} from "@emotion/react";
 import lightTheme from "../../themes/theme";
-import '../login/Login.css';
 import './Signup.css';
 import authService from '../../services/AuthService';
 

@@ -1,13 +1,19 @@
 import React from 'react';
+import theme from '../../themes/theme';
+import Navigation from '../navigation/Navigation';
+import { ThemeProvider } from '@mui/material';
+import './Home.css';
 
 const Home = () =>  {
 
     
     return (
-        <div>
-            <h1>Welcome to the Home Page!</h1>
-            <p>This is a basic home page for your React application.</p>
-        </div>
+        <ThemeProvider theme={theme}>
+            <Navigation/>
+            <div className='home-background'>
+                <p>Welcome to the Home Page!</p>
+            </div>
+        </ThemeProvider>
     );
 }
 
