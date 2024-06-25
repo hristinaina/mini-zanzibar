@@ -13,7 +13,7 @@ type IConsulDBService interface {
 	GetByNamespace(namespace string) (dtos.Namespace, error)
 	AddNamespace(namespaces dtos.Namespaces) error
 	DeleteNamespace(namespace string) error
-	GetRelationsByNamespace(ns string) []string
+	GetRelationsByNamespace(namespace dtos.Namespace) []string
 }
 
 type ConsulDBService struct {
@@ -55,6 +55,11 @@ func (cs *ConsulDBService) GetByNamespace(namespace string) (dtos.Namespace, err
 
 func (cs *ConsulDBService) AddNamespace(namespaces dtos.Namespaces) error {
 	for _, namespace := range namespaces.Namespaces {
+		relations := cs.GetRelationsByNamespace(namespace)
+		relatedRelations := cs.getRelatedRelationsByNamespace(namespace)
+		if HasUniqueElements(relations, relatedRelations) {
+			return errors.CustomError{Code: 400, Message: "Invalid relation"}
+		}
 		if cs.isCyclicGraph(namespace) {
 			return errors.CustomError{Code: 400, Message: "Invalid configuration"}
 		}
@@ -84,12 +89,17 @@ func (cs *ConsulDBService) DeleteNamespace(namespace string) error {
 	return err
 }
 
-func (cs *ConsulDBService) GetRelationsByNamespace(ns string) []string {
-	namespace, err := cs.GetByNamespace(ns)
-	if err != nil {
-		return []string{}
-	}
+func (cs *ConsulDBService) GetRelationsByNamespace(namespace dtos.Namespace) []string {
 	return maps.Keys(namespace.Relations)
+}
+
+func (cs *ConsulDBService) getRelatedRelationsByNamespace(namespace dtos.Namespace) []string {
+	values := maps.Values(namespace.Relations)
+	var relatedRelations []string
+	for _, value := range values {
+		relatedRelations = append(relatedRelations, value...)
+	}
+	return relatedRelations
 }
 
 func (cs *ConsulDBService) isCyclicGraph(namespace dtos.Namespace) bool {

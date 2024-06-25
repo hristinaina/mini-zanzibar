@@ -24,11 +24,15 @@ func NewACLService(levelDB *leveldb.DB, consuldDB *api.Client) IACLService {
 
 func (acls *ACLService) AddACL(relation dtos.Relation) error {
 	namespace := strings.Split(relation.Object, ":")[0]
-	_, err := acls.consulDBService.GetByNamespace(namespace)
+	namespaceObj, err := acls.consulDBService.GetByNamespace(namespace)
+	if err != nil {
+		return errs.CustomError{Code: 404, Message: "Namespace not found"}
+	}
+	_, err = acls.consulDBService.GetByNamespace(namespace)
 	if err != nil {
 		return errs.CustomError{Code: 400, Message: "Namespace not found"}
 	}
-	if !Contains(acls.consulDBService.GetRelationsByNamespace(namespace), relation.Relation) {
+	if !Contains(acls.consulDBService.GetRelationsByNamespace(namespaceObj), relation.Relation) {
 		return errs.CustomError{Code: 400, Message: "Invalid relation"}
 	}
 	key, value := acls.createKeyValue(relation)
@@ -74,13 +78,4 @@ func (acls *ACLService) isRelationSubset(relation dtos.Relation, actualRelation 
 
 func (acls *ACLService) extractNamespace(object string) string {
 	return strings.Split(object, ":")[0]
-}
-
-func Contains(array []string, item string) bool {
-	for _, i := range array {
-		if i == item {
-			return true
-		}
-	}
-	return false
 }
