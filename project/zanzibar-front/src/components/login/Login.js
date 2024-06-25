@@ -47,7 +47,10 @@ const Login = () => {
             }
             const result = await authService.loginUser(username, password);
             console.log(result);
-            if (result) {
+            if (result.status === 200) {
+                const result = authService.validateUser();
+                console.log(result);
+                //todo check what result really is
                 navigate('/home');
             } else {
                 setSnackbarMessage("Invalid input!");
@@ -110,7 +113,6 @@ const Login = () => {
                                 id="username"
                                 sx={{m: 1, width: '30ch'}}
                                 placeholder="someone@example.com"
-                                helperText="Required"
                                 type="email"
                             />
                         </div>
@@ -120,7 +122,6 @@ const Login = () => {
                                 id="password"
                                 type={showPassword ? 'text' : 'password'}
                                 sx={{m: 1, width: '30ch'}}
-                                helperText="Required. Min 8 characters, special character, capital letter"
                                 value={password}
                                 onChange={handlePasswordChange}
                                 required
@@ -148,7 +149,7 @@ const Login = () => {
                         >
                             Login
                         </Button>
-                        <Link  style={{textDecoration: "none"}}>
+                        <Link to='/signup' style={{textDecoration: "none"}}>
                             <p className="reg" variant="contained" style={{textTransform: 'none'}}>No account yet? SIGN
                                 UP</p>
                         </Link>

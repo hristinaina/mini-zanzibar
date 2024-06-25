@@ -1,0 +1,37 @@
+#reg-card {
+    margin: 50px 30%;
+    background-color: white;
+    border-radius: 25px;
+    padding: 0 30px;
+}
+
+.contain-reg {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.title-reg {
+    font-size: 450%;
+    margin-bottom: 20px;
+    margin-top: 0% !important;
+    color: black !important;
+}
+
+.left-side-reg, .right-side-reg {
+    text-align: center;
+    width: 80%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+
+#professor-reg{
+    width: 100%;
+    text-align: center;
+}
+
+.fields {
+    width: 90% !important;
+    margin-left: auto;
+    margin-right: auto;
+}
