@@ -51,5 +51,7 @@ sketch
 mini-zanzibar/databases/leveldb/*
 
 back/.env
+mini-zanzibar/.env
+mini-zanzibar/config/*.json
 
 # End of https://www.toptal.com/developers/gitignore/api/go,react
