@@ -1,13 +1,20 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"fmt"
 	"mini-zanzibar/config"
 	"mini-zanzibar/routes"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	router := gin.Default()
+	// gin.SetMode(gin.ReleaseMode)
+
+	router := gin.New()
+	router.Use(gin.Logger())
+	router.Use(gin.Recovery())
+	router.SetTrustedProxies(nil)
 	router.Use(config.SetupCORS())
 
 	levelDb := config.InitLevelDB()
@@ -16,8 +23,8 @@ func main() {
 	consulDB := config.InitConsulDB()
 
 	routes.SetupRoutes(router, levelDb, consulDB)
-	err := router.Run(":8081")
-	if err != nil {
-		return
-	} // Listen and serve on 0.0.0.0:8081
+	// Run the server with HTTPS
+	if err := router.RunTLS(":8443", "../cert.pem", "../key.pem"); err != nil {
+		fmt.Println("failed to run server: %v", err)
+	}
 }

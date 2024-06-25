@@ -51,7 +51,7 @@ sketch
 mini-zanzibar/databases/leveldb/*
 
 back/.env
-back/key.pem
-back/cert.pem
+key.pem
+cert.pem
 
 # End of https://www.toptal.com/developers/gitignore/api/go,react
