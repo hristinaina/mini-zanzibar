@@ -13,7 +13,7 @@ func SetupRoutes(r *gin.Engine, levelDB *leveldb.DB, consulDB *api.Client) {
 	levelDBRoutes := r.Group("/api/leveldb/")
 	{
 		levelDBController := controllers.NewLevelDBController(levelDB)
-		middleware := middleware.NewMiddleware()
+		middleware, _ := middleware.NewMiddleware()
 		levelDBRoutes.GET("all", middleware.ApiKeyAuthMiddleware(), levelDBController.Get)
 		levelDBRoutes.GET(":key", middleware.ApiKeyAuthMiddleware(), levelDBController.GetByKey)
 		levelDBRoutes.POST("", middleware.ApiKeyAuthMiddleware(), levelDBController.Post)
@@ -22,7 +22,7 @@ func SetupRoutes(r *gin.Engine, levelDB *leveldb.DB, consulDB *api.Client) {
 
 	consulDBRoutes := r.Group("/api/consuldb/")
 	{
-		middleware := middleware.NewMiddleware()
+		middleware, _ := middleware.NewMiddleware()
 		consulDBController := controllers.NewConsulDBController(consulDB)
 		consulDBRoutes.GET("all", middleware.ApiKeyAuthMiddleware(), consulDBController.Get)
 		consulDBRoutes.GET(":key", middleware.ApiKeyAuthMiddleware(), consulDBController.GetByNamespace)
@@ -32,7 +32,7 @@ func SetupRoutes(r *gin.Engine, levelDB *leveldb.DB, consulDB *api.Client) {
 
 	aclRoutes := r.Group("/api/acl/")
 	{
-		middleware := middleware.NewMiddleware()
+		middleware, _ := middleware.NewMiddleware()
 		aclController := controllers.NewACLController(levelDB, consulDB)
 		aclRoutes.POST("", middleware.ApiKeyAuthMiddleware(), aclController.Add)
 		aclRoutes.PUT("", middleware.ApiKeyAuthMiddleware(), aclController.Check)

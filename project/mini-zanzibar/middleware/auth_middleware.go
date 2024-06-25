@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,7 +15,7 @@ type Middleware struct {
 
 func NewMiddleware() (Middleware, error) {
 	//todo load file from env
-	apiKeys, err := loadAPIKeys("buba mara.json")
+	apiKeys, err := loadAPIKeys(os.Getenv("KEYS_FILE_PATH"))
 	if err != nil {
 		return Middleware{}, err
 	}
