@@ -28,10 +28,6 @@ func (acls *ACLService) AddACL(relation dtos.Relation) error {
 	if err != nil {
 		return errs.CustomError{Code: 404, Message: "Namespace not found"}
 	}
-	_, err = acls.consulDBService.GetByNamespace(namespace)
-	if err != nil {
-		return errs.CustomError{Code: 400, Message: "Namespace not found"}
-	}
 	if !Contains(acls.consulDBService.GetRelationsByNamespace(namespaceObj), relation.Relation) {
 		return errs.CustomError{Code: 400, Message: "Invalid relation"}
 	}
