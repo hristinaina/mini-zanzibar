@@ -26,7 +26,7 @@ func (aclc ACLController) Add(c *gin.Context) {
 
 	err := aclc.service.AddACL(relation)
 	if err != nil {
-		errs.InternalServerError(c, err)
+		errs.BadRequestError(c, err)
 		return
 	}
 

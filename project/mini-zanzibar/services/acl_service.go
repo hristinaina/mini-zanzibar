@@ -4,6 +4,7 @@ import (
 	"github.com/hashicorp/consul/api"
 	"github.com/syndtr/goleveldb/leveldb"
 	"mini-zanzibar/dtos"
+	errs "mini-zanzibar/errors"
 	"strings"
 )
 
@@ -22,6 +23,14 @@ func NewACLService(levelDB *leveldb.DB, consuldDB *api.Client) IACLService {
 }
 
 func (acls *ACLService) AddACL(relation dtos.Relation) error {
+	namespace := strings.Split(relation.Object, ":")[0]
+	_, err := acls.consulDBService.GetByNamespace(namespace)
+	if err != nil {
+		return errs.CustomError{Code: 400, Message: "Namespace not found"}
+	}
+	if !Contains(acls.consulDBService.GetRelationsByNamespace(namespace), relation.Relation) {
+		return errs.CustomError{Code: 400, Message: "Invalid relation"}
+	}
 	key, value := acls.createKeyValue(relation)
 	return acls.levelDBService.Add(key, value)
 }

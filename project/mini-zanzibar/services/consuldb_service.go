@@ -3,6 +3,7 @@ package services
 import (
 	"encoding/json"
 	"github.com/hashicorp/consul/api"
+	"golang.org/x/exp/maps"
 	"mini-zanzibar/dtos"
 	"mini-zanzibar/errors"
 )
@@ -12,6 +13,7 @@ type IConsulDBService interface {
 	GetByNamespace(namespace string) (dtos.Namespace, error)
 	AddNamespace(namespaces dtos.Namespaces) error
 	DeleteNamespace(namespace string) error
+	GetRelationsByNamespace(ns string) []string
 }
 
 type ConsulDBService struct {
@@ -80,6 +82,14 @@ func (cs *ConsulDBService) DeleteNamespace(namespace string) error {
 	key := "namespace/" + namespace
 	_, err = cs.db.KV().Delete(key, nil)
 	return err
+}
+
+func (cs *ConsulDBService) GetRelationsByNamespace(ns string) []string {
+	namespace, err := cs.GetByNamespace(ns)
+	if err != nil {
+		return []string{}
+	}
+	return maps.Keys(namespace.Relations)
 }
 
 func (cs *ConsulDBService) isCyclicGraph(namespace dtos.Namespace) bool {
