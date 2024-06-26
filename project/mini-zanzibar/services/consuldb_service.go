@@ -4,8 +4,11 @@ import (
 	"encoding/json"
 	"github.com/hashicorp/consul/api"
 	"golang.org/x/exp/maps"
+	"log"
 	"mini-zanzibar/dtos"
 	"mini-zanzibar/errors"
+	"strconv"
+	"strings"
 )
 
 type IConsulDBService interface {
@@ -38,7 +41,7 @@ func (cs *ConsulDBService) GetAll() (map[string]string, error) {
 }
 
 func (cs *ConsulDBService) GetByNamespace(namespace string) (dtos.Namespace, error) {
-	key := "namespace/" + namespace
+	key, _ := cs.getHighestVersion(namespace)
 	kvPair, _, err := cs.db.KV().Get(key, nil)
 	if err != nil {
 		return dtos.Namespace{}, err
@@ -63,7 +66,9 @@ func (cs *ConsulDBService) AddNamespace(namespaces dtos.Namespaces) error {
 		if cs.isCyclicGraph(namespace) {
 			return errors.CustomError{Code: 400, Message: "Invalid configuration"}
 		}
-		key := "namespace/" + namespace.Namespace
+		_, version := cs.getHighestVersion(namespace.Namespace)
+		version += 1
+		key := "namespace/v" + strconv.Itoa(version) + "/" + namespace.Namespace
 		value, err := json.Marshal(namespace)
 		if err != nil {
 			return err
@@ -125,4 +130,49 @@ func (cs *ConsulDBService) isCyclicGraph(namespace dtos.Namespace) bool {
 		}
 	}
 	return false
+}
+
+func (cs *ConsulDBService) getHighestVersion(namespace string) (string, int) {
+	keyPattern := "namespace/" // Prefix for keys
+
+	// Fetch all keys under the specified prefix
+	kv := cs.db.KV()
+	pairs, _, err := kv.Keys(keyPattern, "", nil)
+	if err != nil {
+		log.Fatalf("Failed to fetch keys from Consul: %v", err)
+	}
+
+	// Filter keys that match the pattern "namespace/v*/" + namespace
+	var matchingKeys []string
+	for _, key := range pairs {
+		if strings.HasSuffix(key, "/"+namespace) {
+			matchingKeys = append(matchingKeys, key)
+		}
+	}
+	return cs.findHighestNumber(matchingKeys)
+}
+
+func (cs *ConsulDBService) findHighestNumber(pairs []string) (string, int) {
+	highestVersion := 0
+	var highestKey string
+
+	// Iterate through keys to find highest version
+	for _, key := range pairs {
+		// Extract version from key
+		parts := strings.Split(key, "/")
+		versionStr := parts[len(parts)-2] // Assuming version is the second last part
+		versionNumStr := versionStr[1:]
+		version, err := strconv.Atoi(versionNumStr)
+		if err != nil {
+			continue // Skip keys with invalid version format
+		}
+
+		// Compare versions
+		if version > highestVersion {
+			highestVersion = version
+			highestKey = key
+		}
+	}
+
+	return highestKey, highestVersion
 }
