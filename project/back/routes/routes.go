@@ -6,13 +6,13 @@ import (
 	"back/services"
 	"database/sql"
 	"log"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
 
 func SetupRoutes(r *gin.Engine, db *sql.DB) {
-	//todo load file from env
-	logService, err := services.NewLogService("application.log")
+	logService, err := services.NewLogService(os.Getenv("LOGS_FILE"))
 	if err != nil {
 		log.Fatalf("Failed to initialize LogService: %v", err)
 	}
