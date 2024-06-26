@@ -10,7 +10,7 @@ require (
 )
 
 require (
-	github.com/armon/go-metrics v0.4.1 // indirect
+	github.com/armon/go-metrics v0.5.3 // indirect
 	github.com/bytedance/sonic v1.11.9 // indirect
 	github.com/bytedance/sonic/loader v0.1.1 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect
@@ -53,3 +53,5 @@ require (
 	google.golang.org/protobuf v1.34.2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
+
+replace github.com/armon/go-metrics => github.com/hashicorp/go-metrics v0.5.3

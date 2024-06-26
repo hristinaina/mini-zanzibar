@@ -1,7 +1,7 @@
 name: Codeql
 on: [push]
 jobs:
-  build-zanzibre:
+  build-zanzibar:
     runs-on: ubuntu-latest
     defaults:
       run:
