@@ -9,11 +9,12 @@ import (
 )
 
 type UserController struct {
-	service services.UserService
+	service    services.UserService
+	logService *services.LogService
 }
 
-func NewUserController(db *sql.DB) UserController {
-	return UserController{service: services.NewUserService(db)}
+func NewUserController(db *sql.DB, logService *services.LogService) UserController {
+	return UserController{service: services.NewUserService(db), logService: logService}
 }
 
 func (uc UserController) Login(c *gin.Context) {

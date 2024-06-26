@@ -11,12 +11,14 @@ import (
 )
 
 type NSController struct {
-	service services.NSService
+	service    services.NSService
+	logService *services.LogService
 }
 
-func NewNSController() NSController {
+func NewNSController(logService *services.LogService) NSController {
 	return NSController{
-		service: services.NewNSService(),
+		service:    services.NewNSService(),
+		logService: logService,
 	}
 }
 
