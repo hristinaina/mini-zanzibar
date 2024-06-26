@@ -38,13 +38,13 @@ func (cc *NSController) Get(c *gin.Context) {
 }
 
 func (cc *NSController) AddNamespace(c *gin.Context) {
-	var namespace dtos.Namespace
-	if err := c.ShouldBindJSON(&namespace); err != nil {
+	var namespaces dtos.Namespaces
+	if err := c.BindJSON(&namespaces); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad input data"})
 		return
 	}
 
-	resp, err := cc.service.AddNamespace(namespace)
+	resp, err := cc.service.AddNamespace(namespaces)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to send request to Zanzibar"})
 		return

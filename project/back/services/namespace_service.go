@@ -17,8 +17,8 @@ func (nss NSService) GetAll() (*http.Response, error) {
 	return nss.zanzibarService.sendRequest("GET", "/consuldb/all", nil)
 }
 
-func (nss NSService) AddNamespace(namespace dtos.Namespace) (*http.Response, error) {
-	return nss.zanzibarService.sendRequest("POST", "/consuldb", namespace)
+func (nss NSService) AddNamespace(namespaces dtos.Namespaces) (*http.Response, error) {
+	return nss.zanzibarService.sendRequest("POST", "/consuldb", namespaces)
 }
 
 func (nss NSService) GetByNamespace(key string) (*http.Response, error) {
