@@ -16,4 +16,43 @@ func SetupRoutes(r *gin.Engine, db *sql.DB) {
 		userRoutes.POST("/login", authController.Login)
 		userRoutes.POST("/logout", middleware.RequireAuth, authController.Logout)
 	}
+
+	aclRoutes := r.Group("/api/acl")
+	{
+		aclController := controllers.NewACLController()
+		middleware := middleware.NewMiddleware(db)
+		aclRoutes.POST("", middleware.RequireAuth, aclController.Add)
+		aclRoutes.PUT("", middleware.RequireAuth, aclController.Check)
+	}
+
+	nameSpaceRoutes := r.Group("/api/ns/")
+	{
+		middleware := middleware.NewMiddleware(db)
+		nsController := controllers.NewNSController()
+		nameSpaceRoutes.GET("all", middleware.RequireAuth, nsController.Get)
+		nameSpaceRoutes.GET(":key", middleware.RequireAuth, nsController.GetByNamespace)
+		nameSpaceRoutes.POST("", middleware.RequireAuth, nsController.AddNamespace)
+		nameSpaceRoutes.DELETE(":key", middleware.RequireAuth, nsController.Delete)
+	}
+
+	dataRoutes := r.Group("/api/data/")
+	{
+		dataController := controllers.NewDataController()
+		middleware := middleware.NewMiddleware(db)
+		dataRoutes.GET("all", middleware.RequireAuth, dataController.GetAll)
+		dataRoutes.GET(":key", middleware.RequireAuth, dataController.GetByKey)
+		dataRoutes.POST("", middleware.RequireAuth, dataController.Add)
+		dataRoutes.DELETE(":key", middleware.RequireAuth, dataController.Delete)
+	}
+
+	fileRoutes := r.Group("/api/files")
+	{
+		fileController := controllers.NewFileController(db)
+		middleware := middleware.NewMiddleware(db)
+		fileRoutes.POST("/create", middleware.RequireAuth, fileController.Create)
+		fileRoutes.PUT("/modify", middleware.RequireAuth, fileController.Modify)
+		fileRoutes.POST("/share", middleware.RequireAuth, fileController.ShareAccess)
+		fileRoutes.GET("/user", middleware.RequireAuth, fileController.GetUserFiles)
+		fileRoutes.GET("/shared", middleware.RequireAuth, fileController.GetSharedFiles)
+	}
 }

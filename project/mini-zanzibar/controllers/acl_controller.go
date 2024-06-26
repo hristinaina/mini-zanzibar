@@ -7,6 +7,7 @@ import (
 	"mini-zanzibar/dtos"
 	errs "mini-zanzibar/errors"
 	"mini-zanzibar/services"
+	"net/http"
 )
 
 type ACLController struct {
@@ -43,5 +44,10 @@ func (aclc ACLController) Check(c *gin.Context) {
 		errs.InternalServerError(c, err)
 		return
 	}
-	c.JSON(200, authorized)
+
+	response := gin.H{
+		"allowed": authorized,
+	}
+
+	c.JSON(http.StatusOK, response)
 }

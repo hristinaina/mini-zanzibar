@@ -14,7 +14,8 @@ CREATE DATABASE bezbednost
 CREATE USER root WITH PASSWORD 'ftn';
 GRANT ALL PRIVILEGES ON DATABASE bezbednost TO root;
 
-drop table users;
+drop table if exists users;
+DROP TABLE IF EXISTS files;
 
 CREATE TABLE users (
     id BIGINT PRIMARY KEY,
@@ -22,6 +23,13 @@ CREATE TABLE users (
     surname VARCHAR(255),
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE files (
+   id SERIAL PRIMARY KEY,
+   name VARCHAR(255) NOT NULL,
+   content TEXT,
+   owner VARCHAR(255) NOT NULL
 );
 
 INSERT INTO users (id, name, surname, email, password) VALUES 

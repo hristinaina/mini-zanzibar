@@ -1,11 +1,12 @@
 package controllers
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/hashicorp/consul/api"
 	"mini-zanzibar/dtos"
 	errs "mini-zanzibar/errors"
 	"mini-zanzibar/services"
+
+	"github.com/gin-gonic/gin"
+	"github.com/hashicorp/consul/api"
 )
 
 type ConsulDBController struct {
