@@ -2,6 +2,7 @@ package services
 
 import (
 	"back/dtos"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io/ioutil"
@@ -44,6 +45,9 @@ func (acls ACLService) CheckRelation(relation dtos.Relation) (bool, error) {
 	var result struct {
 		Allowed bool `json:"allowed"`
 	}
-
+	err = json.NewDecoder(resp.Body).Decode(&result)
+	if err != nil {
+		return false, errors.New("Failed to decode response body")
+	}
 	return result.Allowed, nil
 }
