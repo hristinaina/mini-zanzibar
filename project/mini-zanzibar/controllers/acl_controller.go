@@ -50,6 +50,4 @@ func (aclc ACLController) Check(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, response)
-
-	c.JSON(200, authorized)
 }

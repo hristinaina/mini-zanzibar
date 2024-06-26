@@ -2,8 +2,8 @@ package services
 
 import (
 	"back/dtos"
-	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 )
@@ -28,20 +28,21 @@ func (acls ACLService) CheckRelation(relation dtos.Relation) (bool, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return false, errors.New("Failed to check relation: received non-200 status code")
-	}
+		// Read the response body
+		bodyBytes, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return false, errors.New("Failed to read response body")
+		}
 
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return false, errors.New("Failed to read response from Zanzibar")
+		// Convert body to string
+		bodyString := string(bodyBytes)
+
+		// Create an error message with the response status and body
+		return false, fmt.Errorf("status %d, response %s", resp.StatusCode, bodyString)
 	}
 
 	var result struct {
 		Allowed bool `json:"allowed"`
-	}
-
-	if err := json.Unmarshal(body, &result); err != nil {
-		return false, errors.New("Failed to decode response from Zanzibar")
 	}
 
 	return result.Allowed, nil
