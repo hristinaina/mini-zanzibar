@@ -14,29 +14,34 @@ type FileController struct {
 	fileService services.FileService
 	aclService  services.ACLService
 	namespace   string
+	logService  *services.LogService
 }
 
-func NewFileController(db *sql.DB) FileController {
+func NewFileController(db *sql.DB, logService *services.LogService) FileController {
 	return FileController{
 		fileService: services.NewFileService(db),
 		aclService:  services.NewACLService(),
 		namespace:   "doc",
+		logService:  logService,
 	}
 }
 
 func (fc *FileController) Create(c *gin.Context) {
+	currentUserFromCookie, _ := c.Get("user")
+	currentUser := currentUserFromCookie.(*models.User)
+
+	fc.logService.Info("Processing Create File request. USER: " + currentUser.Email)
 	var file models.File
 	if err := c.ShouldBindJSON(&file); err != nil {
+		fc.logService.Error("Bad input data. USER: " + currentUser.Email)
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad input data"})
 		return
 	}
 
-	currentUserFromCookie, _ := c.Get("user")
-	currentUser := currentUserFromCookie.(*models.User)
-
 	file.Owner = currentUser.Email
 	createdFile, err := fc.fileService.CreateFile(file)
 	if err != nil {
+		fc.logService.Error("Failed to create file. USER: " + currentUser.Email)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create file"})
 		return
 	}
@@ -50,6 +55,7 @@ func (fc *FileController) Create(c *gin.Context) {
 
 	resp, err := fc.aclService.AddRelation(relation)
 	if err != nil {
+		fc.logService.Error("Failed to send request to zanzibar. USER: " + currentUser.Email)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to send request to Zanzibar"})
 		return
 	}
@@ -57,22 +63,26 @@ func (fc *FileController) Create(c *gin.Context) {
 
 	_, err = ioutil.ReadAll(resp.Body)
 	if err != nil {
+		fc.logService.Error("Failed to set file owner. USER: " + currentUser.Email)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to set file owner"})
 		return
 	}
 
+	fc.logService.Info("File created successfully. USER: " + currentUser.Email + " . File: " + createdFile.ID)
 	c.JSON(http.StatusOK, gin.H{"message": "File created successfully", "file": createdFile})
 }
 
 func (fc *FileController) Modify(c *gin.Context) {
+	currentUserFromCookie, _ := c.Get("user")
+	currentUser := currentUserFromCookie.(*models.User)
+
+	fc.logService.Info("Processing Modify File request. USER: " + currentUser.Email)
 	var file models.File
 	if err := c.ShouldBindJSON(&file); err != nil {
+		fc.logService.Error("Bad input data. USER: " + currentUser.Email)
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad input data"})
 		return
 	}
-
-	currentUserFromCookie, _ := c.Get("user")
-	currentUser := currentUserFromCookie.(*models.User)
 
 	// Check if user is owner or editor
 	isAuthorized, err := fc.aclService.CheckRelation(dtos.Relation{
@@ -87,6 +97,7 @@ func (fc *FileController) Modify(c *gin.Context) {
 			Relation: "editor",
 		})
 		if err != nil || !isAuthorized {
+			fc.logService.Error("Not authorized to modify file. USER: " + currentUser.Email)
 			c.JSON(http.StatusForbidden, gin.H{"error": "Not authorized to modify file"})
 			return
 		}
@@ -94,22 +105,26 @@ func (fc *FileController) Modify(c *gin.Context) {
 
 	modifiedFile, err := fc.fileService.ModifyFile(file)
 	if err != nil {
+		fc.logService.Error("Failed to modify file. USER: " + currentUser.Email)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to modify file"})
 		return
 	}
 
+	fc.logService.Info("File modified successfully. USER: " + currentUser.Email + " . File: " + modifiedFile.ID)
 	c.JSON(http.StatusOK, gin.H{"message": "File modified successfully", "file": modifiedFile})
 }
 
 func (fc *FileController) ShareAccess(c *gin.Context) {
+	currentUserFromCookie, _ := c.Get("user")
+	currentUser := currentUserFromCookie.(*models.User)
+
+	fc.logService.Info("Processing Share Access request. USER: " + currentUser.Email)
 	var relation dtos.Relation
 	if err := c.ShouldBindJSON(&relation); err != nil {
+		fc.logService.Error("Bad input data. USER: " + currentUser.Email)
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Bad input data"})
 		return
 	}
-
-	currentUserFromCookie, _ := c.Get("user")
-	currentUser := currentUserFromCookie.(*models.User)
 
 	// Ensure only owner can share access
 	isAuthorized, err := fc.aclService.CheckRelation(dtos.Relation{
@@ -118,6 +133,7 @@ func (fc *FileController) ShareAccess(c *gin.Context) {
 		Relation: "owner",
 	})
 	if err != nil || !isAuthorized {
+		fc.logService.Error("Not authorized to share access. USER: " + currentUser.Email)
 		c.JSON(http.StatusForbidden, gin.H{"error": "Not authorized to share access"})
 		return
 	}
@@ -126,10 +142,12 @@ func (fc *FileController) ShareAccess(c *gin.Context) {
 	relation.User = "user:" + relation.User
 
 	if _, err := fc.aclService.AddRelation(relation); err != nil {
+		fc.logService.Error("Failed to share access. USER: " + currentUser.Email)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to share access"})
 		return
 	}
 
+	fc.logService.Info("Access shared successfully. USER: " + currentUser.Email + " . Object: " + relation.Object + " . User: " + relation.User)
 	c.JSON(http.StatusOK, gin.H{"message": "Access shared successfully"})
 }
 
@@ -137,12 +155,15 @@ func (fc *FileController) GetUserFiles(c *gin.Context) {
 	currentUserFromCookie, _ := c.Get("user")
 	currentUser := currentUserFromCookie.(*models.User)
 
+	fc.logService.Info("Processing Get User Files request. USER: " + currentUser.Email)
 	files, err := fc.fileService.GetFilesByUser(currentUser.Email)
 	if err != nil {
+		fc.logService.Error("Failed to get user files. USER: " + currentUser.Email)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get user files"})
 		return
 	}
 
+	fc.logService.Info("User files retrieved successfully. USER: " + currentUser.Email)
 	c.JSON(http.StatusOK, files)
 }
 
@@ -150,11 +171,14 @@ func (fc *FileController) GetSharedFiles(c *gin.Context) {
 	currentUserFromCookie, _ := c.Get("user")
 	currentUser := currentUserFromCookie.(*models.User)
 
+	fc.logService.Info("Processing Get Shared Files request. USER: " + currentUser.Email)
 	files, err := fc.fileService.GetFilesSharedWithUser(currentUser.Email)
 	if err != nil {
+		fc.logService.Error("Failed to get shared files. USER: " + currentUser.Email)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get shared files"})
 		return
 	}
 
+	fc.logService.Info("Shared files retrieved successfully. USER: " + currentUser.Email)
 	c.JSON(http.StatusOK, files)
 }
