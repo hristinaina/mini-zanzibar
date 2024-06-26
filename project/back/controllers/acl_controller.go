@@ -50,18 +50,15 @@ func (aclc ACLController) Check(c *gin.Context) {
 		return
 	}
 
-	resp, err := aclc.service.CheckRelation(relation)
+	allowed, err := aclc.service.CheckRelation(relation)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to send request to Zanzibar"})
-		return
-	}
-	defer resp.Body.Close()
-
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to read response from Zanzibar"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.Data(resp.StatusCode, resp.Header.Get("Content-Type"), body)
+	response := gin.H{
+		"allowed": allowed,
+	}
+
+	c.JSON(http.StatusOK, response)
 }

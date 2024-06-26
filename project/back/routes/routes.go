@@ -38,9 +38,21 @@ func SetupRoutes(r *gin.Engine, db *sql.DB) {
 	dataRoutes := r.Group("/api/data/")
 	{
 		dataController := controllers.NewDataController()
-		dataRoutes.GET("all", dataController.GetAll)
-		dataRoutes.GET(":key", dataController.GetByKey)
-		dataRoutes.POST("", dataController.Add)
-		dataRoutes.DELETE(":key", dataController.Delete)
+		middleware := middleware.NewMiddleware(db)
+		dataRoutes.GET("all", middleware.RequireAuth, dataController.GetAll)
+		dataRoutes.GET(":key", middleware.RequireAuth, dataController.GetByKey)
+		dataRoutes.POST("", middleware.RequireAuth, dataController.Add)
+		dataRoutes.DELETE(":key", middleware.RequireAuth, dataController.Delete)
+	}
+
+	fileRoutes := r.Group("/api/files")
+	{
+		fileController := controllers.NewFileController(db)
+		middleware := middleware.NewMiddleware(db)
+		fileRoutes.POST("/create", middleware.RequireAuth, fileController.Create)
+		fileRoutes.PUT("/modify", middleware.RequireAuth, fileController.Modify)
+		fileRoutes.POST("/share", middleware.RequireAuth, fileController.ShareAccess)
+		fileRoutes.GET("/user", middleware.RequireAuth, fileController.GetUserFiles)
+		fileRoutes.GET("/shared", middleware.RequireAuth, fileController.GetSharedFiles)
 	}
 }
