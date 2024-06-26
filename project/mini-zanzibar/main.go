@@ -10,7 +10,12 @@ import (
 )
 
 func main() {
-	router := gin.Default()
+	// gin.SetMode(gin.ReleaseMode)
+
+	router := gin.New()
+	router.Use(gin.Logger())
+	router.Use(gin.Recovery())
+	router.SetTrustedProxies(nil)
 	router.Use(config.SetupCORS())
 
 	// load data from .env
@@ -24,8 +29,8 @@ func main() {
 	consulDB := config.InitConsulDB()
 
 	routes.SetupRoutes(router, levelDb, consulDB)
-	err := router.Run(":8081")
-	if err != nil {
-		return
-	} // Listen and serve on 0.0.0.0:8081
+	// Run the server with HTTPS
+	if err := router.RunTLS(":8443", "../server.crt", "../server.key"); err != nil {
+		fmt.Println("failed to run server: %v", err)
+	}
 }
