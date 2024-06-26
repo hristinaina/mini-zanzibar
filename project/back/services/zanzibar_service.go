@@ -2,6 +2,7 @@ package services
 
 import (
 	"bytes"
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -18,12 +19,13 @@ func NewZanzibarService() ZanzibarService {
 	return ZanzibarService{
 		apiKey:      os.Getenv("ZANZIBAR_SECRET_KEY"),
 		client:      os.Getenv("ZANZIBAR_CLIENT_NAME"),
-		zanzibarURL: "http://localhost:8081/api",
+		zanzibarURL: "https://localhost:8443/api",
 	}
 }
 
 func (zs ZanzibarService) sendRequest(method, endpoint string, body interface{}) (*http.Response, error) {
 	url := fmt.Sprintf("%s%s", zs.zanzibarURL, endpoint)
+
 	jsonData, err := json.Marshal(body)
 	if err != nil {
 		return nil, err
@@ -38,6 +40,14 @@ func (zs ZanzibarService) sendRequest(method, endpoint string, body interface{})
 	req.Header.Set("X-API-KEY", zs.apiKey)
 	req.Header.Set("Client-Name", zs.client)
 
-	client := &http.Client{}
+	// Disable certificate verification
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+
+	// Create HTTP client with custom transport
+	client := &http.Client{Transport: tr}
+
+	//client := &http.Client{}
 	return client.Do(req)
 }
