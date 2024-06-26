@@ -2,7 +2,6 @@ package services
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/hashicorp/consul/api"
 	"golang.org/x/exp/maps"
 	"log"
@@ -42,9 +41,7 @@ func (cs *ConsulDBService) GetAll() (map[string]string, error) {
 }
 
 func (cs *ConsulDBService) GetByNamespace(namespace string) (dtos.Namespace, error) {
-	fmt.Println(cs.getHighestVersion(namespace))
-	fmt.Println("--------------------------------")
-	key := cs.getHighestVersion(namespace)
+	key, _ := cs.getHighestVersion(namespace)
 	kvPair, _, err := cs.db.KV().Get(key, nil)
 	if err != nil {
 		return dtos.Namespace{}, err
@@ -69,7 +66,9 @@ func (cs *ConsulDBService) AddNamespace(namespaces dtos.Namespaces) error {
 		if cs.isCyclicGraph(namespace) {
 			return errors.CustomError{Code: 400, Message: "Invalid configuration"}
 		}
-		key := "namespace/" + namespace.Namespace
+		_, version := cs.getHighestVersion(namespace.Namespace)
+		version += 1
+		key := "namespace/v" + strconv.Itoa(version) + "/" + namespace.Namespace
 		value, err := json.Marshal(namespace)
 		if err != nil {
 			return err
@@ -133,7 +132,7 @@ func (cs *ConsulDBService) isCyclicGraph(namespace dtos.Namespace) bool {
 	return false
 }
 
-func (cs *ConsulDBService) getHighestVersion(namespace string) string {
+func (cs *ConsulDBService) getHighestVersion(namespace string) (string, int) {
 	keyPattern := "namespace/" // Prefix for keys
 
 	// Fetch all keys under the specified prefix
@@ -153,7 +152,7 @@ func (cs *ConsulDBService) getHighestVersion(namespace string) string {
 	return cs.findHighestNumber(matchingKeys)
 }
 
-func (cs *ConsulDBService) findHighestNumber(pairs []string) string {
+func (cs *ConsulDBService) findHighestNumber(pairs []string) (string, int) {
 	highestVersion := 0
 	var highestKey string
 
@@ -175,5 +174,5 @@ func (cs *ConsulDBService) findHighestNumber(pairs []string) string {
 		}
 	}
 
-	return highestKey
+	return highestKey, highestVersion
 }
