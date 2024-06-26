@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"back/repositories"
+	"back/services"
 	"back/utils"
 	"database/sql"
 	"fmt"
@@ -14,85 +15,97 @@ import (
 )
 
 type Middleware struct {
-	repo repositories.UserRepository
+	repo       repositories.UserRepository
+	logService *services.LogService
 }
 
-func NewMiddleware(db *sql.DB) Middleware {
-	return Middleware{repo: repositories.NewUserRepository(db)}
+func NewMiddleware(db *sql.DB, logService *services.LogService) Middleware {
+	mw := Middleware{
+		repo:       repositories.NewUserRepository(db),
+		logService: logService,
+	}
+	mw.logService.Info("Middleware initialized successfully")
+	return mw
 }
 
 func (mw Middleware) RequireAuth(c *gin.Context) {
-	// get the cookie off request
 	tokenString, err := c.Cookie("Authorization")
-
 	if err != nil {
+		mw.logService.Error("Failed to retrieve Authorization cookie: " + err.Error())
 		c.AbortWithStatus(http.StatusUnauthorized)
+		return
 	}
 
-	// decode/validate it
-	token, _ := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
-
-		// hmacSampleSecret is a []byte containing your secret, e.g. []byte("my_secret_key")
 		return []byte(os.Getenv("API_SECRET")), nil
 	})
 
-	if token == nil {
-		c.AbortWithStatus(http.StatusBadRequest)
+	if err != nil || token == nil {
+		mw.logService.Error("Token validation failed: " + err.Error())
+		c.AbortWithStatus(http.StatusUnauthorized)
 		return
 	}
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		// check the exp
-		if float64(time.Now().Unix()) > claims["exp"].(float64) {
-			c.AbortWithStatus(http.StatusUnauthorized)
-		}
-
-		// find the user with token sub
-		sub, ok := claims["sub"].(float64)
+		expFloat, ok := claims["exp"].(float64)
 		if !ok {
+			mw.logService.Error("Failed to parse expiration time from token claims")
+			c.AbortWithStatus(http.StatusUnauthorized)
+			return
+		}
+		exp := time.Unix(int64(expFloat), 0)
+		if time.Now().After(exp) {
+			mw.logService.Info("Token expired")
 			c.AbortWithStatus(http.StatusUnauthorized)
 			return
 		}
 
-		subInt := int(sub)
-		user, err := mw.repo.GetUserById(subInt)
-
-		if err != nil {
+		subFloat, ok := claims["sub"].(float64)
+		if !ok {
+			mw.logService.Error("Failed to parse subject ID from token claims")
 			c.AbortWithStatus(http.StatusUnauthorized)
+			return
+		}
+		sub := int(subFloat)
+		user, err := mw.repo.GetUserById(sub)
+		if err != nil {
+			mw.logService.Error("Failed to retrieve user from repository: " + err.Error())
+			c.AbortWithStatus(http.StatusUnauthorized)
+			return
 		}
 
-		// attach to request
+		mw.logService.Info("User authenticated successfully")
 		c.Set("user", user)
-
-		// continue
 		c.Next()
 	} else {
+		mw.logService.Error("Token claims validation failed")
 		c.AbortWithStatus(http.StatusUnauthorized)
 	}
 }
 
-// functions which only users can use
 func UserMiddleware(c *gin.Context) {
-
 	cookie, err := c.Cookie("Authorization")
-
 	if err != nil {
 		c.AbortWithStatus(http.StatusUnauthorized)
 		return
 	}
 
 	claims, err := utils.ParseToken(cookie)
-
 	if err != nil {
 		c.AbortWithStatus(http.StatusUnauthorized)
 		return
 	}
 
-	// 1 is user
-	if claims["role"] != "1" {
+	role, ok := claims["role"].(string)
+	if !ok {
+		c.AbortWithStatus(http.StatusUnauthorized)
+		return
+	}
+
+	if role != "1" {
 		c.AbortWithStatus(http.StatusForbidden)
 		return
 	}
