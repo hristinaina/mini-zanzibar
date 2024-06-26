@@ -7,7 +7,7 @@ import (
 )
 
 func InitLevelDB() *leveldb.DB {
-	db, err := leveldb.OpenFile("./databases/leveldb", nil)
+	db, err := leveldb.OpenFile("/databases/leveldb", nil)
 	if err != nil {
 		log.Fatalf("Failed to open LevelDB: %v", err)
 	}
