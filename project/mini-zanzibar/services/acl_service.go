@@ -20,7 +20,7 @@ type ACLService struct {
 }
 
 func NewACLService(levelDB *leveldb.DB, consuldDB *api.Client, logService *LogService) IACLService {
-	return &ACLService{levelDBService: NewLevelDBService(levelDB), consulDBService: NewConsulDBService(consuldDB), logService: logService}
+	return &ACLService{levelDBService: NewLevelDBService(levelDB), consulDBService: NewConsulDBService(consuldDB, logService), logService: logService}
 }
 
 func (acls *ACLService) AddACL(relation dtos.Relation) error {

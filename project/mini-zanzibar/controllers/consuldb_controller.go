@@ -15,7 +15,7 @@ type ConsulDBController struct {
 }
 
 func NewConsulDBController(db *api.Client, logService *services.LogService) ConsulDBController {
-	return ConsulDBController{service: services.NewConsulDBService(db), logService: logService}
+	return ConsulDBController{service: services.NewConsulDBService(db, logService), logService: logService}
 }
 
 func (cc *ConsulDBController) Get(c *gin.Context) {
